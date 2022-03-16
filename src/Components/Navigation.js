@@ -7,11 +7,13 @@ import UserContext from "../Context/UserContext";
 import Home from "../Pages/Home";
 import Personnel from "../Pages/Personnel";
 import LoginPage from "../Pages/LoginPage";
+import ModalContext from "../Context/ModalContext";
 
 export default function Navigation() {
 
   let {isAdmin} = useContext(UserContext);
   return (
+    <ModalContext.Provider>
     <BrowserRouter>
       <Container fluid className="p-0">
         <Navbar className="purpleBG" expand="lg">
@@ -41,5 +43,6 @@ export default function Navigation() {
       <Route path="personnel" element={<Personnel />} key="personnel" />
       </Routes>
     </BrowserRouter>
+    </ModalContext.Provider>
   );
 }

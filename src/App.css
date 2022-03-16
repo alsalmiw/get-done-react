@@ -4,7 +4,7 @@ body{
 .task-container{
   margin: 5px;
   padding: 10px;
-  width: 32%;
+ 
   border: 1px solid purple;
   background-color: white;
 }
@@ -15,5 +15,33 @@ body{
 
 .nav-link, .navbar-brand{
   color: white !important;
+}
+.dashboard-container{
+  display: flex;
+  flex-direction: row;
+  height: 96vh;
+}
+.to-do, .in-progress, .done{
+  height: 100%;
+  width: 33.33%;
+  padding: 0 10px 10px 10px;
+  
+}
+.to-do, .done{
+  background-color: rgb(214, 206, 214);
+}
+
+.in-progress{
+  background-color: whitesmoke;
+}
+
+.dashboard-status{
+  align-items: center;
+  border-bottom: 3px solid rgb(146, 131, 146);
+  text-transform: uppercase;
+  color: rgb(54, 3, 54);
+  background-color: white;
+  padding-top: 10px;
+  
 }
 

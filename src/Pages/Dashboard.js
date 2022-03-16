@@ -1,32 +1,37 @@
 import React, {useState, useContext} from 'react'
-import {Container, Modal, Button} from "react-bootstrap";
+import {Container, Modal, Button, Row, Col} from "react-bootstrap";
 import UserContext from "../Context/UserContext";
+import ProjectTile from '../Components/ProjectTile';
+import ModalContext from '../Context/ModalContext';
+import useModal from '../Hooks/use-modal';
+import ModalComponent from '../Components/ModalComponent';
 
 export default function Dashboard() {
 
   let {isAdmin} = useContext(UserContext);
+  //let {show, setShow} = useContext(ModalContext)
 
-  const [show, setShow] = useState(false);
-  const [isEdit, setIsEdit]=useState(false);
+  //const [show, setShow] = useState(false);
+  //const [isEdit, setIsEdit]=useState(false);
 
-  const handleViewClose = () => setShow(false);
-  const handleViewShow = () =>
-  {
-    setShow(true);
-    setIsEdit(false);
-  }
+  // const handleClose = () => setShow(false);
+  // const handleViewShow = () =>
+  // {
+  //   setShow(true);
+  //   setIsEdit(false);
+  // }
   
   
-  const handleEditClose = () => setShow(false);
-  const handleEditShow = () => 
-  {
-    setShow(true);
-    setIsEdit(true);
-  }
+  // const handleEditClose = () => setShow(false);
+  // const handleEditShow = () => 
+  // {
+  //   setShow(true);
+  //   setIsEdit(true);
+  // }
 
   return (
     <>
-    <Container fluid>
+    {/* <Container fluid>
       <div className='task-container'>
         <div className='task-title center'><h4>TaskName</h4> </div>
         <div className='task-description'> 
@@ -43,13 +48,36 @@ export default function Dashboard() {
       {isAdmin?<Button variant="primary" onClick={handleEditShow}>Edit</Button> : null}
         </div>
       </div>
+    </Container> */}
+<ModalContext.Provider value={useModal()}>
+    <Container fluid className='p-0 dashboard-container'>
+    <div className='to-do'>
+    <Row className='dashboard-status text-center'><h4>ToDo</h4></Row>
+    <Row>
+      <Col>
+      <ProjectTile />
+      </Col>
+    </Row>
+    </div>
+    <div className='in-progress '>
+    <Row className='dashboard-status text-center'><h4>InProgress</h4></Row>
+    </div>
+
+    <div className='done'>
+    <Row className='dashboard-status text-center'><h4>Completed</h4></Row>
+
+    </div>
+
     </Container>
+
+
+
     <>
      
 
-      <Modal
+      {/* <Modal
         show={show}
-        onHide={handleViewClose}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
@@ -72,13 +100,13 @@ export default function Dashboard() {
           }
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleViewClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
-
+       */}
     {/* EDIT */}
 
       {/* <Modal
@@ -103,6 +131,8 @@ export default function Dashboard() {
       </Modal>
     </> */}
     </>
+    </ModalContext.Provider>
     </>
+  
   )
 }
