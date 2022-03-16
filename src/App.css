@@ -58,4 +58,16 @@ body{
   background-color: whitesmoke;
   border-radius: 10px;
 }
+.project-snippit-container{
+  display: flex;
+  justify-content:space-between ;
+  flex-direction: row;
+  margin: 10px;
+}
 
+.snippit-container{
+  width: 24.5%;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid purple;
+}
