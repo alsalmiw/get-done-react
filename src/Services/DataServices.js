@@ -12,7 +12,7 @@ function checkToken(){
 
 async function login(loginUser){
 
-    let res= await fetch('http://localhost:5262/User/login', {
+    let res= await fetch('https://task-tracker-web-app.azurewebsites.net/user/login', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
