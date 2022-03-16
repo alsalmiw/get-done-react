@@ -71,3 +71,11 @@ body{
   background-color: white;
   border: 1px solid purple;
 }
+
+@media (min-width: 576px)
+{
+.modal-dialog {
+    max-width: 80%;
+    margin: 1.75rem auto;
+}
+}
