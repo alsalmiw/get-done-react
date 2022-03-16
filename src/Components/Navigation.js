@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Dashboard from '../Pages/Dashboard'
 import CreateAccount from "../Pages/CreateAccount";
+import UserContext from "../Context/UserContext";
 
 export default function Navigation() {
+
+  let {isAdmin} = useContext(UserContext);
   return (
     <BrowserRouter>
       <Container fluid className="p-0">
@@ -18,6 +21,7 @@ export default function Navigation() {
                 <Nav.Link href="login">Login</Nav.Link>
                 <Nav.Link href="create-account">Create Account</Nav.Link>
                 <Nav.Link href="dashboard">Dashboard</Nav.Link>
+                <Nav.Link href="personnel">Personnel</Nav.Link>
               </Nav>
               <Nav>
               <Button variant="outline-light"> Create Project</Button>
