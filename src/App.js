@@ -14,13 +14,13 @@ function App() {
   return (
   
     <UserContext.Provider value={useUser()}>
-  
+   <ModalContext.Provider value={useModal()}>
     <Container fluid className='p-0'>
-    <ModalContext.Provider value={useModal()}>
+   
       <Navigation />
-      </ModalContext.Provider>
+     
     </Container>
-    
+     </ModalContext.Provider>
     </UserContext.Provider>
   );
 }

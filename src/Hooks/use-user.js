@@ -5,6 +5,7 @@ export default function useUser(){
     const [username, setUsername] = useState('');
     const [userId, setUserId] = useState('');
     const [isAdmin, setIsAdmin] = useState(true);
+    const [isOwner, setIsOwner] = useState(false);
 
 
 
