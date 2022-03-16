@@ -1,5 +1,5 @@
-import React from 'react'
-import ProjectSnippitComponent from '../Components/ProjectSnippitComponent'
+import React from 'react';
+import ProjectSnippitComponent from '../Components/ProjectSnippitComponent';
 
 export default function Home() {
   return (

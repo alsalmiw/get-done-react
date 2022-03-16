@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import {login} from "../Services/DataServices"
+import {login} from "../Services/DataServices";
 
 
 export default function LoginPage() {
