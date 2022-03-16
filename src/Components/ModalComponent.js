@@ -115,8 +115,12 @@ export default function ModalComponent(props) {
             <Row>
               <p>Due Date: 22-03-2022</p>
             </Row>
-            <Row>
-              <h5>Tasks Information</h5>
+            <Row className="p-2">
+             <Col sm={10}><h5>Tasks Information</h5></Col> 
+             {
+               isAdmin?  <Col sm={2}><Button className='m-1' variant="info" >Create Task</Button></Col>:null
+             }
+             
               </Row>
               <Row>
               <Accordion>
@@ -157,7 +161,15 @@ export default function ModalComponent(props) {
                         </Form.Group>
                       </Form>
    
-     <p><strong>Task Description: </strong> <span contentEditable onKeyDown={(e) => console.log(e.target.textContent)}> we are doing the things </span></p>
+     <p><strong>Task Description: </strong>
+     {
+       isAdmin? 
+        <span contentEditable onKeyDown={(e) => console.log(e.target.textContent)}> we are doing the things </span>
+       :
+        "things to do"
+     }
+     </p>
+     
 
      <Button variant="outline-primary">Update Task</Button>
     </Accordion.Body>
