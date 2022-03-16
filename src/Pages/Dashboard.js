@@ -1,7 +1,10 @@
-import React, {useState} from 'react'
-import {Container, Modal, Button} from "react-bootstrap"
+import React, {useState, useContext} from 'react'
+import {Container, Modal, Button} from "react-bootstrap";
+import UserContext from "../Context/UserContext";
 
 export default function Dashboard() {
+
+  let {isAdmin} = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const [isEdit, setIsEdit]=useState(false);
@@ -24,7 +27,6 @@ export default function Dashboard() {
   return (
     <>
     <Container fluid>
-
       <div className='task-container'>
         <div className='task-title center'><h4>TaskName</h4> </div>
         <div className='task-description'> 
@@ -38,13 +40,9 @@ export default function Dashboard() {
         <Button variant="primary" onClick={handleViewShow}>
         View
       </Button>
-      <Button variant="primary" onClick={handleEditShow}>
-        Edit
-      </Button>
+      {isAdmin?<Button variant="primary" onClick={handleEditShow}>Edit</Button> : null}
         </div>
-
       </div>
-
     </Container>
     <>
      

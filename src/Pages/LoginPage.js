@@ -1,8 +1,31 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import UserContext from "../Context/UserContext";
+import { useNavigate } from "react-router-dom";
+import {login} from "../Services/DataServices"
 
 
-export default function CreateLogin() {
+export default function LoginPage() {
+    let navigate = useNavigate();
+    let {username, setUsername} = useContext(UserContext);
+    const [password, setPassword] = useState('');
+
+    const handleSubmit =async () => {
+
+        let userData = {
+          username,
+          password
+        }
+        let token = await login (userData)
+        console.log(token)
+        if (token.token !=null)
+        {
+          localStorage.setItem("Token" , token.token)
+          setUsername(username);
+          navigate('/dashboard');
+        }
+      }
+
     return ( //create the create account page and the login page!
         //background purple
         <Container fluid>
@@ -16,13 +39,13 @@ export default function CreateLogin() {
                 <Col md={8} className="">
                     <Form>
                         <Form.Group className="mb-4" controlId="formUsername">
-                            <Form.Control type="text" placeholder="Username" />
+                            <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)}/>
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicPassword">
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)} />
                         </Form.Group>
                         <div className="d-flex justify-content-center">
-                            <Button className="mt-4" variant="primary" type="submit">
+                            <Button className="mt-4" variant="primary" type="submit" onClick={handleSubmit}>
                                 Login
                             </Button>
                         </div>

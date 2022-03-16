@@ -4,6 +4,9 @@ import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Dashboard from '../Pages/Dashboard'
 import CreateAccount from "../Pages/CreateAccount";
 import UserContext from "../Context/UserContext";
+import Home from "../Pages/Home";
+import Personnel from "../Pages/Personnel";
+import LoginPage from "../Pages/LoginPage";
 
 export default function Navigation() {
 
@@ -17,24 +20,25 @@ export default function Navigation() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="login">Login</Nav.Link>
-                <Nav.Link href="create-account">Create Account</Nav.Link>
-                <Nav.Link href="dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="personnel">Personnel</Nav.Link>
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
+                <Nav.Link as={Link} to="login">Login</Nav.Link>
+                <Nav.Link as={Link} to="create-account">Create Account</Nav.Link>
+                <Nav.Link as={Link} to="dashboard">Dashboard</Nav.Link>
+               {isAdmin?<Nav.Link as={Link} to="personnel">Personnel</Nav.Link> : null} 
               </Nav>
               <Nav>
-              <Button variant="outline-light"> Create Project</Button>
+              {isAdmin?<Button variant="outline-light"> Create Project</Button> : null}
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </Container>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} key="dashboards" />
-        <Route path="login" element={<Dashboard />} key="login" />
-        <Route path="create-account" element={<CreateAccount />} key="create-account" />
-
+      <Route path="/" element={<Home />} key='home' />
+      <Route path="login" element={<LoginPage />} key="login" />
+      <Route path="create-account" element={<CreateAccount />} key="create-account" />
+      <Route path="dashboard" element={<Dashboard />} key="dashboards" />
+      <Route path="personnel" element={<Personnel />} key="personnel" />
       </Routes>
     </BrowserRouter>
   );

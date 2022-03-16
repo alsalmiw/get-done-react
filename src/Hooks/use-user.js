@@ -1,9 +1,12 @@
 import {useState} from 'react';
+import {login} from '../Services/DataServices'
 
 export default function useUser(){
-    const [user, setUser] = useState('');
+    const [username, setUsername] = useState('');
     const [userId, setUserId] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
 
-    return {user, setUser, userId, setUserId, isAdmin, setIsAdmin}
+
+
+    return {username, setUsername, userId, setUserId, isAdmin, setIsAdmin}
 }
