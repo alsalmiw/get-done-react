@@ -38,29 +38,14 @@ export default function ProjectTile() {
         <Button className='m-1' variant="primary" onClick={handleViewShow}>
         View
       </Button>
-      {isAdmin?<><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
+      {isAdmin?<><Button className='m-1' variant="info" >Create Task</Button><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
       <Button className='m-1' variant="success" >Archive</Button>
-      <Button className='m-1' variant="danger" >Delete</Button></>
+      <Button className='m-1' variant="danger" >Delete</Button>
+      
+      </>
       : null}
         </div>
-        <div className='tasks'>
-        <div className='task-container'>
-        <Row>
-          <Col>Task Title</Col>
-          <Col>Assigned To: </Col>
-          <Col>Due Date: </Col>
-          <Col><Button className='m-1' variant="primary" onClick={handleViewShow}>
-        View
-      </Button>
-         
-         {
-           isAdmin?<Button  variant="warning" onClick={handleEditShow}>Edit</Button>: null
-         }
-         </Col>
-        </Row>
-        </div>
-        </div>
-        <ModalComponent />
+       
       </div>
 
 

@@ -13,7 +13,7 @@ export default function Dashboard() {
   return (
     <>
    
-{/* <ModalContext.Provider value={useModal()}> */}
+
     <Container fluid className='p-0 dashboard-container'>
     <div className='to-do'>
     <Row className='dashboard-status text-center'><h4>ToDo</h4></Row>
@@ -43,7 +43,7 @@ export default function Dashboard() {
     </div>
 
     </Container>
-    {/* </ModalContext.Provider> */}
+    
     </>
   
   )

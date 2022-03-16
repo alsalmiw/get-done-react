@@ -7,7 +7,5 @@ export default function useUser(){
     const [isAdmin, setIsAdmin] = useState(true);
     const [isOwner, setIsOwner] = useState(false);
 
-
-
     return {username, setUsername, userId, setUserId, isAdmin, setIsAdmin}
 }
