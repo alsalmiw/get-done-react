@@ -1,7 +1,7 @@
 body{
   background-color: whitesmoke;
 }
-.task-container{
+.project-container{
   margin: 5px;
   padding: 10px;
  
@@ -43,5 +43,19 @@ body{
   background-color: white;
   padding-top: 10px;
   
+}
+
+.project-buttons{
+  display: flex;
+  justify-content:center;
+}
+.tasks{
+  margin-top: 10px;
+}
+
+.task-container{
+  padding: 5px;
+  background-color: whitesmoke;
+  border-radius: 10px;
 }
 

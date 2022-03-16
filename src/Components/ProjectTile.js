@@ -7,9 +7,9 @@ import ModalComponent from './ModalComponent';
 export default function ProjectTile() {
 
   let {isAdmin} = useContext(UserContext);
-  let {show, setShow} = useContext(ModalContext);
+  let {show, setShow, isEdit, setIsEdit} = useContext(ModalContext);
 
-  const [isEdit, setIsEdit]=useState(false);
+  // const [isEdit, setIsEdit]=useState(false);
 
   const handleClose = () => setShow(false);
   const handleViewShow = () =>
@@ -27,20 +27,38 @@ export default function ProjectTile() {
   }
 
   return (
-    <div className='task-container'>
-        <div className='task-title center'><h4>TaskName</h4> </div>
-        <div className='task-description'> 
-        <p><strong>Description:</strong> </p>
+    <div className='project-container'>
+        <div className='project-title center'><h4>TaskName: Airport Logistics</h4> </div>
+        <div className='project-description'> 
+        <p><strong>Description: </strong>remove all dead bodies from the airport and transport to morgue </p>
         </div>
-
-        <div className='task-info'></div>
-        <p><strong>Priority:</strong> </p>
-        <p><strong>on Track?</strong> </p>
-        <div>
-        <Button variant="primary" onClick={handleViewShow}>
+        <p><strong>Priority:</strong> Top</p>
+        <p><strong>Progress: </strong> 60%</p>
+        <div className='project-buttons'>
+        <Button className='m-1' variant="primary" onClick={handleViewShow}>
         View
       </Button>
-      {isAdmin?<Button variant="primary" onClick={handleEditShow}>Edit</Button> : null}
+      {isAdmin?<><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
+      <Button className='m-1' variant="success" >Archive</Button>
+      <Button className='m-1' variant="danger" >Delete</Button></>
+      : null}
+        </div>
+        <div className='tasks'>
+        <div className='task-container'>
+        <Row>
+          <Col>Task Title</Col>
+          <Col>Assigned To: </Col>
+          <Col>Due Date: </Col>
+          <Col><Button className='m-1' variant="primary" onClick={handleViewShow}>
+        View
+      </Button>
+         
+         {
+           isAdmin?<Button  variant="warning" onClick={handleEditShow}>Edit</Button>: null
+         }
+         </Col>
+        </Row>
+        </div>
         </div>
         <ModalComponent />
       </div>

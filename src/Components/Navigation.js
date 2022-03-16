@@ -8,12 +8,23 @@ import Home from "../Pages/Home";
 import Personnel from "../Pages/Personnel";
 import LoginPage from "../Pages/LoginPage";
 import ModalContext from "../Context/ModalContext";
+import useModal from "../Hooks/use-modal";
+import ModalComponent from "./ModalComponent";
 
 export default function Navigation() {
 
   let {isAdmin} = useContext(UserContext);
+  let {show, setShow, isEdit, setIsEdit} = useContext(ModalContext);
+
+  const handleCreateShow =() => {
+
+    setShow(true);
+    setIsEdit(true);
+  }
+
   return (
-    <ModalContext.Provider>
+    // <ModalContext.Provider value={useModal()}>
+    <>
     <BrowserRouter>
       <Container fluid className="p-0">
         <Navbar className="purpleBG" expand="lg">
@@ -29,7 +40,7 @@ export default function Navigation() {
                {isAdmin?<Nav.Link as={Link} to="personnel">Personnel</Nav.Link> : null} 
               </Nav>
               <Nav>
-              {isAdmin?<Button variant="outline-light"> Create Project</Button> : null}
+              {isAdmin?<Button variant="outline-light" onClick={handleCreateShow}> Create Project</Button> : null}
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -43,6 +54,8 @@ export default function Navigation() {
       <Route path="personnel" element={<Personnel />} key="personnel" />
       </Routes>
     </BrowserRouter>
-    </ModalContext.Provider>
+    <ModalComponent />
+    </>
+    // </ModalContext.Provider>
   );
 }
