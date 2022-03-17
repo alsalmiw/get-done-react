@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Container, Row, Col, Table, Form, Accordion, Button } from 'react-bootstrap';
+import UserContext from "../Context/UserContext";
 
 function Personnel() {
+  let { username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken, allUsers, setAllUsers } = useContext(UserContext);
 
   //map through the users to create the table 
 
   //The data has to be an array for the map method to
-  let DummyData = [
-    { Id: 1, Username: "Walaa", isAdmin: false, isOwner: true, isRevoked: false },
-    { Id: 2, Username: "Jamie", isAdmin: true, isOwner: false, isRevoked: false },
-    { Id: 3, Username: "John", isAdmin: true, isOwner: false, isRevoked: true },
-    { Id: 4, Username: "Peter", isAdmin: true, isOwner: false, isRevoked: false },
-    { Id: 5, Username: "Jesse", isAdmin: true, isOwner: false, isRevoked: false },
-    { Id: 6, Username: "An", isAdmin: false, isOwner: false, isRevoked: false },
-    { Id: 7, Username: "aaa", isAdmin: false, isOwner: false, isRevoked: false },
-    { Id: 8, Username: "Hector", isAdmin: true, isOwner: false, isRevoked: true }
-  ];
+  // let DummyData = [
+  //   { Id: 1, Username: "Walaa", isAdmin: false, isOwner: true, isRevoked: false },
+  //   { Id: 2, Username: "Jamie", isAdmin: true, isOwner: false, isRevoked: false },
+  //   { Id: 3, Username: "John", isAdmin: true, isOwner: false, isRevoked: true },
+  //   { Id: 4, Username: "Peter", isAdmin: true, isOwner: false, isRevoked: false },
+  //   { Id: 5, Username: "Jesse", isAdmin: true, isOwner: false, isRevoked: false },
+  //   { Id: 6, Username: "An", isAdmin: false, isOwner: false, isRevoked: false },
+  //   { Id: 7, Username: "aaa", isAdmin: false, isOwner: false, isRevoked: false },
+  //   { Id: 8, Username: "Hector", isAdmin: true, isOwner: false, isRevoked: true }
+  // ];
   //Owner is an Admin, isAdmin is a project manager
 
-  useEffect(async () => {
-    SetUserPersonnel(DummyData);
-  }, [])
+  // useEffect(async () => {
+  //   SetUserPersonnel(DummyData);
+  // }, [])
 
-  const [Personnel, SetUserPersonnel] = useState([]);
+  // const [Personnel, SetUserPersonnel] = useState([]);
 
   return (
 
@@ -45,7 +47,7 @@ function Personnel() {
                   </thead>
                   <tbody>
                     {
-                      Personnel.map((user, i) => {
+                      allUsers.map((user, i) => {
                         return (
                           user.isRevoked === false ?
                             <tr>
@@ -54,7 +56,7 @@ function Personnel() {
                               <td className="text-center">
                                 {
                                   user.isOwner == true ? "Owner" :
-                                  user.isAdmin == true ? "Admin" : "Specialist"
+                                    user.isAdmin == true ? "Admin" : "Specialist"
                                 }
                               </td>
                               <td className="text-center">
@@ -102,7 +104,7 @@ function Personnel() {
                   </thead>
                   <tbody>
                     {
-                      Personnel.map((user, i) => {
+                      allUsers.map((user, i) => {
                         return (
                           user.isRevoked === true ?
                             <tr>
