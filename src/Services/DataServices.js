@@ -111,4 +111,61 @@ async function GetAllUsersInfo()
    return userData;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData, GetAllUsersInfo }
+async function DeleteUser(userToDelete)
+{
+    let res = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/DeleteUser/${userToDelete}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userToDelete)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+async function ChangeRole(Username)
+{
+    let res = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/UpdateUserRole/${Username}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Username)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+async function ChangeRevokeUserAccess(id)
+{
+    let res = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/ChangeRevokeUserAccess/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(id)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess }
