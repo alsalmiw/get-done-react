@@ -9,10 +9,10 @@ export default function ProjectTile({project, idx}) {
   let {isAdmin} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
-    projectDescription, setProjectDescription, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
+    projectPriority, setProjectPriority, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
-    specialist, setSpecialist, allProjects, setAllProjects} = useContext(ModalContext);
+    specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID} = useContext(ModalContext);
 
   // const [isEdit, setIsEdit]=useState(false);
 
@@ -49,10 +49,26 @@ export default function ProjectTile({project, idx}) {
          </p>
         <p><strong>Progress: </strong> 60%</p>
         <div className='project-buttons'>
-        <Button className='m-1' variant="primary" onClick={handleViewShow}>
+        <Button className='m-1' variant="primary" onClick={() => {
+          handleViewShow()
+          setProjectId(project.projectId)
+        setProjectName(project.projectName)
+        setProjectPriority(project.projectPriority)
+        setProjectStatus(project.projectStatus)
+        setProjectDescription(project.projectDescription)
+        setProjectDueDate(project.projectDueDate)
+        }}>
         View
       </Button>
-      {isAdmin?<><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
+      {isAdmin?<><Button className='m-1' variant="warning" onClick={() => {
+        handleEditShow()
+        setProjectId(project.projectId)
+        setProjectName(project.projectName)
+        setProjectPriority(project.projectPriority)
+        setProjectStatus(project.projectStatus)
+        setProjectDescription(project.projectDescription)
+        setProjectDueDate(project.projectDueDate)
+        }}>Edit</Button>
       <Button className='m-1' variant="success" >Archive</Button>
       <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button>
       

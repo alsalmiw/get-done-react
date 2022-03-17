@@ -17,6 +17,8 @@ export default function ModalComponent(props) {
 
   const handleClose = () => setShow(false); 
 
+ 
+
   
 const handleCreateProject = async() => {
   
@@ -90,6 +92,7 @@ const handleUpdateProject = async () => {
                   <Form.Control
                     type="text"
                     placeholder="Project Title"
+                    value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
                   />
                 </Form.Group>
@@ -98,6 +101,7 @@ const handleUpdateProject = async () => {
                   <Form.Control
                     as="textarea"
                     rows={6}
+                    value={projectDescription}
                     onChange={(e) => setProjectDescription(e.target.value)}
                   />
                 </Form.Group>
@@ -105,6 +109,7 @@ const handleUpdateProject = async () => {
                   <Form.Label>Priority</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
+                    value={projectPriority}
                     onChange={(e) => setProjectPriority(e.target.value)}
                   >
                     <option>Priority</option>
@@ -118,6 +123,7 @@ const handleUpdateProject = async () => {
                   <Form.Control
                     type="date"
                     placeholder="Due Date"
+                    value={projectDueDate}
                     onChange={(e) => setProjectDueDate(e.target.value)}
                   />
                 </Form.Group>
@@ -128,13 +134,13 @@ const handleUpdateProject = async () => {
           //show project
           <>
             <Row className="text-center">
-              <h6>Project Title</h6>
+              <h6>{projectName}</h6>
             </Row>
             <Row>
-              <p>Project Description</p>
+              <p>{projectDescription}</p>
             </Row>
             <Row>
-              <p>Priority: Top </p>
+              <p>Priority: {projectPriority} </p>
             </Row>
             <Row>
               <Form>
@@ -143,6 +149,7 @@ const handleUpdateProject = async () => {
 
                   <Form.Select
                     aria-label="Default select example"
+                    value={projectStatus}
                     onChange={(e) => setProjectStatus(e.target.value)}
                   >
                     <option>Status</option>
@@ -154,18 +161,96 @@ const handleUpdateProject = async () => {
               </Form>
             </Row>
             <Row>
-              <p>Due Date: 22-03-2022</p>
+              <p>Due Date: {projectDueDate}</p>
             </Row>
             <Row className="p-2">
              <Col sm={10}><h5>Tasks Information</h5></Col> 
              {
-               isAdmin?  <Col sm={2}><Button className='m-1' variant="info" >Create Task</Button></Col>:null
+               isAdmin? 
+
+               <>
+            
+            <Accordion>
+  <Accordion.Item eventKey="0">
+    <Accordion.Header className="purple-border">Create a New Task</Accordion.Header>
+    <Accordion.Body>
+     
+    
+              <Form>
+                <Form.Group className="mb-3" controlId="Title">
+                  <Form.Label>Task Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Project Title"
+                    value={taskName}
+                    onChange={(e) => setTaskName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Description">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={6}
+                    value={taskDescription}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Category">
+                  <Form.Label>Priority</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={taskPriority}
+                    onChange={(e) => setTaskPriority(e.target.value)}
+                  >
+                    <option>Priority</option>
+                    <option value="Top">Top</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Category">
+                  <Form.Label>Task Specialist</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={taskPriority}
+                    onChange={(e) => setTaskPriority(e.target.value)}
+                  >
+                    <option>Specialist</option>
+
+                    <option value="Top">Top</option>
+                    
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Title">
+                  <Form.Label>Due Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Due Date"
+                    value={taskDueDate}
+                    onChange={(e) => setTaskDueDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Form>
+            
+         <Button className='m-1' variant="warning">Submit New Task</Button>
+
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+
+               </>
+              //  <Col sm={2}><Button className='m-1' variant="info" >Create Task</Button></Col>
+               
+               
+               
+               
+               :null
              }
              
               </Row>
               <Row>
               <Accordion>
-  <Accordion.Item eventKey="0">
+  <Accordion.Item eventKey="1">
     <Accordion.Header><h6>PROJ01 Things to do </h6></Accordion.Header>
     <Accordion.Body>
      <h5>Task Title: PROJ01 - Things to do </h5>

@@ -101,4 +101,14 @@ async function GetLoggedInUserData(username)
    return userData;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData }
+async function GetAllUsersInfo()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/GetAllUsers`);
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
+export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData, GetAllUsersInfo }
