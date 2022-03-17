@@ -11,7 +11,7 @@ export default function ModalComponent(props) {
     projectPriority, setProjectPriority, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
-    specialist, setSpecialist, allProjects, setAllProject
+    specialist, setSpecialist, allProjects, setAllProjects
   } = useContext(ModalContext);
   let { isAdmin, userId } = useContext(UserContext);
 
@@ -45,7 +45,7 @@ const handleCreateProject = async() => {
       if(isAdmin)
       {
         projects = getProjectItemsByUserId(userId)
-        setAllProject(projects)
+        setAllProjects(projects)
       }
       
     }
@@ -70,7 +70,7 @@ const handleUpdateProject = async () => {
   if (result)
   {
     let projects = getProjectItemsByUserId(userId)
-      setAllProject(projects)
+      setAllProjects(projects)
   }
 }
 

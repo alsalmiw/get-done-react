@@ -22,37 +22,56 @@ export default function LoginPage() {
         if (loginToken.token !=null)
         {
           setToken(loginToken.token)
-          setUsername(username);
-          let projects = await getProjectItemsByUserId(userId)
-        if(!projects==[])
-        {
-          setAllProjectsByID(projects)
-        }
+          //setUsername(username);
+          
+            console.log("goes in")
+          let userInfo = await GetLoggedInUserData(username);
+            console.log(userInfo.id)
+          
 
-        let allProjects = await getAllProjects()
-        setAllProjects(allProjects)
-          let userData = await GetLoggedInUserData(username);
-          if(!userData.isRevoked || !userData.isDeleted)
-          {
-               console.log(userData.isAdmin)
-          setUserId(userData.id)
-          setUsername(userData.username)
-          setIsAdmin(userData.isAdmin)
-          setIsOwner(userData.isOwner)
-          navigate('/');
-          if(isAdmin)
-          {
-              let personnelData = await GetAllUsersInfo()
-              if(!personnelData==[])
-              {
-                setAllUsers(personnelData)
-              }
-          }
 
-          }
-          else if (userData.isRevoked || userData.isDeleted){
-              setToken(null)
-          }
+        //   setTimeout(async() => {
+              
+            if(!userInfo.isRevoked || !userInfo.isDeleted)
+                    {
+                        //console.log(userData.isAdmin)
+                    setUserId(userInfo.id)
+                    setUsername(userInfo.username)
+                    //setIsAdmin(userInfo.isAdmin)
+                    setIsAdmin(true)
+                    setIsOwner(userInfo.isOwner)
+                    let projects = await getProjectItemsByUserId(userInfo.id)
+                        if(!projects==[])
+                        {
+                        setAllProjectsByID(projects)
+                        }
+                
+                        let allProjects = await getAllProjects()
+                        setAllProjects(allProjects)
+                        navigate('/');
+
+                    if(isAdmin)
+                    {
+                        let personnelData = await GetAllUsersInfo()
+                        if(!personnelData==[])
+                        {
+                            setAllUsers(personnelData)
+                        }
+                    }
+
+                    }
+                    else if (userInfo.isRevoked || userInfo.isDeleted){
+                        setToken(null)
+                    }
+
+                   
+                       
+                      
+                       
+
+ 
+        //   }, 1000);
+       
          
         }
       }
