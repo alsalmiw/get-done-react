@@ -18,15 +18,15 @@ export default function Home() {
   {
     navigate('/login');
   }
-  else{
-    console.log("first")
-    let projects = await getAllProjects()
-    if(!projects==[])
-    {
-      setAllProjects(projects);
-      console.log("first")
-    }
-  }
+  // else if(!token==null){
+  //   console.log("first")
+  //   let projects = await getAllProjects()
+  //   if(!projects==[])
+  //   {
+  //     setAllProjects(projects);
+  //     console.log("first")
+  //   }
+  //}
   },[])
 
   

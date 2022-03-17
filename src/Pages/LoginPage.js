@@ -1,13 +1,15 @@
 import React, {useContext, useState} from 'react';
 import { Container, Row, Col, Form, Button, Nav } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
+import ModalContext from '../Context/ModalContext';
 import { useNavigate } from "react-router-dom";
-import {login, GetLoggedInUserData} from "../Services/DataServices";
+import {login, GetLoggedInUserData, getProjectItemsByUserId, getAllProjects} from "../Services/DataServices";
 
 
 export default function LoginPage() {
     let navigate = useNavigate();
     let {username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken} = useContext(UserContext);
+    let {setAllProjects, setAllProjectsByID} = useContext(ModalContext)
 
     const handleSubmit =async () => {
         console.log("hello")
@@ -21,6 +23,14 @@ export default function LoginPage() {
         {
           setToken(loginToken.token)
           setUsername(username);
+          let projects = await getProjectItemsByUserId(userId)
+        if(!projects==[])
+        {
+          setAllProjectsByID(projects)
+        }
+
+        let allProjects = await getAllProjects()
+        setAllProjects(allProjects)
           let userData = await GetLoggedInUserData(username);
           if(!userData.isRevoked || !userData.isDeleted)
           {
@@ -30,8 +40,9 @@ export default function LoginPage() {
           setIsAdmin(userData.isAdmin)
           setIsOwner(userData.isOwner)
           navigate('/');
+
           }
-          else{
+          else if (userData.isRevoked || userData.isDeleted){
               setToken(null)
           }
          
