@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Dashboard from '../Pages/Dashboard'
@@ -13,8 +13,8 @@ import useModal from "../Hooks/use-modal";
 import ModalComponent from "./ModalComponent";
 
 export default function Navigation() {
-  
-  let {isAdmin, token, setToken} = useContext(UserContext);
+  // let navigate = useNavigate();
+  let {isAdmin, token, setToken, setIsAdmin} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, setIsCreateProject, setProjectName, setProjectStatus, setProjectPriority, setProjectDueDate, setProjectDescription} = useContext(ModalContext);
   
  //how to move to a another page useNavigate gives an error
@@ -34,6 +34,7 @@ export default function Navigation() {
   const handleLogOut =() => {
     
     setToken(null)
+    setIsAdmin(false)
   }
 
   return (
@@ -48,7 +49,7 @@ export default function Navigation() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
-             {token==null? <Nav.Link as={Link} to="login">Login</Nav.Link>:<Nav.Link onClick={handleLogOut}>Logout</Nav.Link>}   
+             {token==null? <Nav.Link as={Link} to="login">Login</Nav.Link>:<Nav.Link as={Link} to="login" onClick={handleLogOut}>Logout</Nav.Link>}   
                 {/* <Nav.Link as={Link} to="create-account">Create Account</Nav.Link> */}
                 <Nav.Link as={Link} to="dashboard">Dashboard</Nav.Link>
                {isAdmin?<Nav.Link as={Link} to="personnel">Personnel</Nav.Link> : null} 

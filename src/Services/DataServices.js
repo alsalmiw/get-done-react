@@ -60,6 +60,7 @@ async function getProjectItemsByUserId(userId)
 {
     let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/GetProjectById/${userId}`);
     let data = await result.json();
+    console.log(data)
     return data;
 }
 
@@ -67,6 +68,7 @@ async function getAllProjects()
 {
     let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/getallprojects`);
     let data = await result.json();
+    console.log(data)
     return data;
 }
 
@@ -89,4 +91,14 @@ async function updateProjectDetails(updatedProject)
     return data;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects }
+async function GetLoggedInUserData(username)
+{
+    let result = await fetch(`http://localhost:5262/User/UserInfo/${username}`);
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
+export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData }

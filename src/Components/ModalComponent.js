@@ -22,10 +22,10 @@ const handleCreateProject = async() => {
   
   let newProject = {
       Id : 0,
-      userId,
+      userId:2,
       projectName,
       projectDescription,
-      dateCreated: new Date(),
+      dateCreate: new Date(),
       projectDueDate,
       projectStatus,
       projectPriority,
@@ -34,13 +34,13 @@ const handleCreateProject = async() => {
   }
     setShow(false);
     console.log(newProject)
-    // let result = await createProject(newProject)
+    let result = await createProject(newProject)
 
-    // if (result)
-    // {
-    //   let projects = getProjectItemsByUserId(userId)
-    //   setAllProject(projects)
-    // }
+    if (result)
+    {
+      let projects = getProjectItemsByUserId(userId)
+      setAllProject(projects)
+    }
 
 }
 
