@@ -35,17 +35,17 @@ export default function LoginPage() {
                 </Col>
                 <hr />
             </Row>
-            <Row className="mt-4 d-flex justify-content-center">
-                <Col md={8} className="">
+            <Row className="d-flex justify-content-center">
+                <Col md={8} className="mt-2">
                     <Form>
                         <Form.Group className="mb-4" controlId="formUsername">
                             <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)}/>
                         </Form.Group>
-                        <Form.Group className="" controlId="formBasicPassword">
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)} />
                         </Form.Group>
                         <div className="d-flex justify-content-center">
-                            <Button className="mt-4" variant="primary" onClick={handleSubmit}>
+                            <Button className="mt-2" variant="primary" onClick={handleSubmit}>
                                 Login
                             </Button>
                         </div>

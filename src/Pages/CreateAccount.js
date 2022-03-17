@@ -28,15 +28,15 @@ export default function CreateAccount() {
         <hr />
       </Row>
       <Row className="d-flex justify-content-center">
-        <Col md={10} className="">
+        <Col md={8} className="mt-2">
           <Form>
-            <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Group className="mb-4" controlId="formUsername">
               <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-4" controlId="formBasicPassword">
               <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)}/>
             </Form.Group>
-            <div className="d-flex justify-content-center">
+            <div className="mt-2 d-flex justify-content-center">
               <Button variant="primary" type="submit" onClick={handleSubmit}>
                 Create
               </Button>
