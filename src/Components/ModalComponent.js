@@ -2,39 +2,51 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Table, Accordion } from "react-bootstrap";
 import ModalContext from "../Context/ModalContext";
 import UserContext from "../Context/UserContext";
+import {createProject, getProjectItemsByUserId, updateProjectDetails} from "../Services/DataServices";
 
 export default function ModalComponent(props) {
   let {
     show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName, projectStatus, setProjectStatus, projectDueDate, setprojectDueDate,
-    projectDescription, setProjectDescription, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
+    projectPriority, setProjectPriority, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
-    specialist, setSpecialist
+    specialist, setSpecialist, allProjects, setAllProject
   } = useContext(ModalContext);
   let { isAdmin, userId } = useContext(UserContext);
 
   const handleClose = () => setShow(false); 
 
-  // const [projectPriority, setProjectPriority] = useState("ToDo");
-  // const [projectName, setProjectName] = useState("");
-  // const [projectStatus, setProjectStatus] = useState("");
-  // const [projectDueDate, setprojectDueDate] = useState("");
-  // const [projectDescription, setProjectDescription] = useState("");
-  // const [taskName, setTaskName] = useState("");
-  // const [taskDescription, setTaskDescription] = useState("");
-  // const [taskPriority, setTaskPriority] = useState("low");
- 
-  // const [taskDueDate, setTaskDueDate] = useState("");
-  // const [taskStatus, setTaskStatus] = useState("");
-  // const [isTaskDeleted, setIsTaskDeleted] = useState(false);
-  // const [isArchived, setIsArchived] = useState(false);
-  // const [specialist, setSpecialist] = useState('')
-
   
-
+const handleCreateProject = async() => {
+  
   let newProject = {
-    Id : 0,
+      Id : 0,
+      userId:2,
+      projectName,
+      projectDescription,
+      dateCreate: new Date(),
+      projectDueDate,
+      projectStatus,
+      projectPriority,
+      isProjectDeleted: false,
+      isProjectArchived: false,
+  }
+    setShow(false);
+    console.log(newProject)
+    let result = await createProject(newProject)
+
+    if (result)
+    {
+      let projects = getProjectItemsByUserId(userId)
+      setAllProject(projects)
+    }
+
+}
+
+const handleUpdateProject = async () => {
+  let updateProject = {
+    projectId,
     userId,
     projectName,
     projectDescription,
@@ -42,11 +54,16 @@ export default function ModalComponent(props) {
     projectDueDate,
     projectStatus,
     projectPriority,
-    isDeleted: false,
-    isArchived: false,
+    isProjectDeleted,
+    isProjectArchived,
+}
+
+  let result = await updateProjectDetails(updateProject);
+  if (result)
+  {
+    let projects = getProjectItemsByUserId(userId)
+      setAllProject(projects)
   }
-const handleCreateProject = () => {
-  console.log(newProject)
 }
 
   
@@ -95,7 +112,7 @@ const handleCreateProject = () => {
                   <Form.Control
                     type="date"
                     placeholder="Due Date"
-                    onChange={(e) => setTaskDueDate(e.target.value)}
+                    onChange={(e) => setProjectDueDate(e.target.value)}
                   />
                 </Form.Group>
               </Form>
@@ -204,7 +221,7 @@ const handleCreateProject = () => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        {isEdit && !isCreateProject ?  <Button variant="primary">Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>: null}
+        {isEdit && !isCreateProject ?  <Button variant="primary" onClick={handleUpdateProject}>Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>:  <Button variant="primary">Update Status</Button>}
         
       </Modal.Footer>
     </Modal>
