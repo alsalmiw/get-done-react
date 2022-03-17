@@ -15,7 +15,7 @@ import ModalComponent from "./ModalComponent";
 export default function Navigation() {
   
   let {isAdmin, token, setToken} = useContext(UserContext);
-  let {show, setShow, isEdit, setIsEdit, setIsCreateProject, setProjectName, setProjectStatus, setProjectPriority, setprojectDueDate, setProjectDescription} = useContext(ModalContext);
+  let {show, setShow, isEdit, setIsEdit, setIsCreateProject, setProjectName, setProjectStatus, setProjectPriority, setProjectDueDate, setProjectDescription} = useContext(ModalContext);
   
  //how to move to a another page useNavigate gives an error
 
@@ -27,7 +27,7 @@ export default function Navigation() {
     setProjectName('')
     setProjectStatus('ToDo')
     setProjectPriority('')
-    setprojectDueDate('')
+    setProjectDueDate('')
     setProjectDescription('')
   }
 

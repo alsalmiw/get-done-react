@@ -58,15 +58,35 @@ async function createProject(newProject){
 
 async function getProjectItemsByUserId(userId)
 {
-    let result = await fetch(`http://localhost:5262/Project/getItemsByUserId/${userId}`);
-    let data = await result.json();
-    return data;
-}
-async function getDashboardProjects()
-{
-    let result = await fetch(`http://localhost:5262/Project/getPublishedItems`);
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/GetProjectById/${userId}`);
     let data = await result.json();
     return data;
 }
 
-export { login, getProjectItemsByUserId, getDashboardProjects, createAccount, createProject }
+async function getAllProjects()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/getallprojects`);
+    let data = await result.json();
+    return data;
+}
+
+async function updateProjectDetails(updatedProject)
+{
+    let res= await fetch('https://task-tracker-web-app.azurewebsites.net/project/createproject', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedProject)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects }

@@ -60,16 +60,27 @@ body{
 }
 .project-snippit-container{
   display: flex;
-  justify-content:space-between ;
+  /* justify-content:center ; */
   flex-direction: row;
+  flex-wrap: wrap;
   margin: 10px;
 }
 
 .snippit-container{
-  width: 24.5%;
+  width: 22.5%;
+  margin: 5px;
   padding: 5px;
   background-color: white;
   border: 1px solid purple;
+}
+.red{
+  color: red;
+}
+.orange{
+  color:orange;
+}
+.green{
+  color:green;
 }
 
 @media (min-width: 576px)
