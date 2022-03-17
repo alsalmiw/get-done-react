@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Table, Form, Accordion } from 'react-bootstrap';
+import { Container, Row, Col, Table, Form, Accordion, Button } from 'react-bootstrap';
 
 function Personnel() {
   
@@ -108,33 +108,12 @@ function Personnel() {
           </Accordion>
         </Col>
       </Row>
+      <Row>
+        <Col className="mt-3 d-flex justify-content-end">
+        <Button variant="primary">Update Users</Button>{' '}
+        </Col>
+      </Row>
     </Container>
-    // <Table striped bordered hover>
-    //               <thead>
-    //                 <tr>
-    //                   <th>#</th>
-    //                   <th>Username</th>
-    //                   <th>Role</th>
-    //                   <th>Change Role</th>
-    //                 </tr>
-    //               </thead>
-    //               <tbody>
-    //                 <tr>
-    //                   <td>1</td>
-    //                   <td>Mark</td>
-    //                   <td>Revoked Access</td>
-    //                   <td>
-    //                     <Form.Select aria-label="Default select example">
-    //                       <option>Open this select menu</option>
-    //                       <option value="1">Admin</option>
-    //                       <option value="2">Project Manager</option>
-    //                       <option value="3">Specialist</option>
-    //                       <option value="4">Revoke Access</option>
-    //                     </Form.Select>
-    //                   </td>
-    //                 </tr>
-    //               </tbody>
-    //             </Table>
   )
 }
 
