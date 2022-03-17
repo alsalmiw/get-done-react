@@ -51,7 +51,7 @@ function Personnel() {
                       allUsers.map((user, i) => {
                         return (
                           user.isRevoked === false ?
-                            <tr>
+                            <tr key={i}>
                               <td className="text-center">{user.Id}</td>
                               <td className="text-center">{user.Username}</td>
                               <td className="text-center">
@@ -108,7 +108,7 @@ function Personnel() {
                       allUsers.map((user, i) => {
                         return (
                           user.isRevoked === true ?
-                            <tr>
+                            <tr key={i}>
                               <td className="text-center">{user.Id}</td>
                               <td className="text-center">{user.Username}</td>
                               <td className="text-center">
