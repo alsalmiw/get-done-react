@@ -5,38 +5,56 @@ import UserContext from "../Context/UserContext";
 
 export default function ModalComponent(props) {
   let {
-    show,
-    setShow,
-    isEdit,
-    setIsEdit,
-    isProjectView,
-    setIsProjectView,
-    isTaskView,
-    setIsTaskView,
-    isTaskEdit,
-    setIsTaskEdit,
+    show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
+    setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
+    projectPriority, setProjectPriority, projectName, setProjectName, projectStatus, setProjectStatus, projectDueDate, setprojectDueDate,
+    projectDescription, setProjectDescription, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
+    taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
+    specialist, setSpecialist
   } = useContext(ModalContext);
-  let { isAdmin } = useContext(UserContext);
+  let { isAdmin, userId } = useContext(UserContext);
 
-  const [priority, setPriority] = useState("ToDo");
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectStatus, setProjectStatus] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [taskPriority, setTaskPriority] = useState("low");
-  const [taskDueDate, setTaskDueDate] = useState("");
-  const [taskStatus, setTaskStatus] = useState("");
-  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
-  const [isArchived, setIsArchived] = useState(false);
-  const [specialist, setSpecialist] = useState('')
+  const handleClose = () => setShow(false); 
 
-  const handleClose = () => setShow(false);
+  // const [projectPriority, setProjectPriority] = useState("ToDo");
+  // const [projectName, setProjectName] = useState("");
+  // const [projectStatus, setProjectStatus] = useState("");
+  // const [projectDueDate, setprojectDueDate] = useState("");
+  // const [projectDescription, setProjectDescription] = useState("");
+  // const [taskName, setTaskName] = useState("");
+  // const [taskDescription, setTaskDescription] = useState("");
+  // const [taskPriority, setTaskPriority] = useState("low");
+ 
+  // const [taskDueDate, setTaskDueDate] = useState("");
+  // const [taskStatus, setTaskStatus] = useState("");
+  // const [isTaskDeleted, setIsTaskDeleted] = useState(false);
+  // const [isArchived, setIsArchived] = useState(false);
+  // const [specialist, setSpecialist] = useState('')
+
+  
+
+  let newProject = {
+    Id : 0,
+    userId,
+    projectName,
+    projectDescription,
+    dateCreated: new Date(),
+    projectDueDate,
+    projectStatus,
+    projectPriority,
+    isDeleted: false,
+    isArchived: false,
+  }
+const handleCreateProject = () => {
+  console.log(newProject)
+}
+
+  
 
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>{isEdit ? "Edit Project" : "View Project"}</Modal.Title>
+        <Modal.Title>{isEdit && !isCreateProject ? "Edit Project" : isEdit && isCreateProject? "Create a Project": "View Project"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {isEdit ? (
@@ -49,7 +67,7 @@ export default function ModalComponent(props) {
                   <Form.Control
                     type="text"
                     placeholder="Project Title"
-                    onChange={(e) => setProjectTitle(e.target.value)}
+                    onChange={(e) => setProjectName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="Description">
@@ -64,7 +82,7 @@ export default function ModalComponent(props) {
                   <Form.Label>Priority</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    onChange={(e) => setPriority(e.target.value)}
+                    onChange={(e) => setProjectPriority(e.target.value)}
                   >
                     <option>Priority</option>
                     <option value="Top">Top</option>
@@ -186,7 +204,8 @@ export default function ModalComponent(props) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary">Update Project</Button>
+        {isEdit && !isCreateProject ?  <Button variant="primary">Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>: null}
+        
       </Modal.Footer>
     </Modal>
   );

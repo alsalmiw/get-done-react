@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 import {Container, Modal, Button, Row, Col} from "react-bootstrap";
 import UserContext from "../Context/UserContext";
 import ProjectTile from '../Components/ProjectTile';
@@ -9,6 +10,16 @@ import ModalComponent from '../Components/ModalComponent';
 export default function Dashboard() {
 
   let {isAdmin} = useContext(UserContext);
+  let navigate = useNavigate();
+  let {token} = useContext(UserContext);
+  useEffect(()=> {
+
+     if (token == null)
+  {
+    navigate('/login');
+  }
+  
+  },[])
 
   return (
     <>

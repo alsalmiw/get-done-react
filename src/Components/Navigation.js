@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import Dashboard from '../Pages/Dashboard'
 import CreateAccount from "../Pages/CreateAccount";
@@ -12,19 +13,26 @@ import useModal from "../Hooks/use-modal";
 import ModalComponent from "./ModalComponent";
 
 export default function Navigation() {
-
+  
   let {isAdmin, token, setToken} = useContext(UserContext);
-  let {show, setShow, isEdit, setIsEdit} = useContext(ModalContext);
-
- 
+  let {show, setShow, isEdit, setIsEdit, setIsCreateProject, setProjectName, setProjectStatus, setProjectPriority, setprojectDueDate, setProjectDescription} = useContext(ModalContext);
+  
+ //how to move to a another page useNavigate gives an error
 
   const handleCreateShow =() => {
 
     setShow(true);
     setIsEdit(true);
+    setIsCreateProject(true);
+    setProjectName('')
+    setProjectStatus('ToDo')
+    setProjectPriority('')
+    setprojectDueDate('')
+    setProjectDescription('')
   }
 
   const handleLogOut =() => {
+    
     setToken(null)
   }
 

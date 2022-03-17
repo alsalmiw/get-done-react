@@ -1,20 +1,31 @@
 import React, {useContext} from 'react'
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
 import { createAccount } from '../Services/DataServices';
 
 export default function CreateAccount() {
-
-  let {username, setUsername, password, setPassword} = useContext(UserContext);
+  let navigate = useNavigate();
+  let {username, setUsername, password, setPassword, setIsAdmin, setToken} = useContext(UserContext);
   
-  const handleSubmit =() => {
+  const handleSubmit = async() => {
 
     let userData = {
       Id : 0,
       username,
       password
     }
-    createAccount(userData);
+    let result = await createAccount(userData);
+    console.log(result)
+    if(result == true)
+    {
+       navigate('/');
+    setIsAdmin(false)
+    setToken("notnull")
+    //How to get a token here? 
+    }
+   
+    
   }
 
   return (
@@ -37,7 +48,7 @@ export default function CreateAccount() {
               <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)}/>
             </Form.Group>
             <div className="d-flex justify-content-center">
-              <Button variant="primary" type="submit" onClick={handleSubmit}>
+              <Button variant="primary" onClick={handleSubmit}>
                 Create
               </Button>
             </div>
