@@ -10,8 +10,28 @@ function checkToken(){
     return result;
 }
 
-async function login(loginUser){
+async function createAccount(createdUser){
 
+    let res= await fetch('https://task-tracker-web-app.azurewebsites.net/user/AddUser', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(createdUser)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+   
+   
+}
+
+async function login(loginUser){
+   
     let res= await fetch('https://task-tracker-web-app.azurewebsites.net/user/login', {
         method: "POST",
         headers: {
@@ -42,4 +62,4 @@ async function getDashboardProjects()
     return data;
 }
 
-export {checkToken, login, getProjectItemsByUserId, getDashboardProjects }
+export {checkToken, login, getProjectItemsByUserId, getDashboardProjects, createAccount }

@@ -13,13 +13,19 @@ import ModalComponent from "./ModalComponent";
 
 export default function Navigation() {
 
-  let {isAdmin} = useContext(UserContext);
+  let {isAdmin, token, setToken} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit} = useContext(ModalContext);
+
+ 
 
   const handleCreateShow =() => {
 
     setShow(true);
     setIsEdit(true);
+  }
+
+  const handleLogOut =() => {
+    setToken(null)
   }
 
   return (
@@ -34,8 +40,8 @@ export default function Navigation() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
-                <Nav.Link as={Link} to="login">Login</Nav.Link>
-                <Nav.Link as={Link} to="create-account">Create Account</Nav.Link>
+             {token==null? <Nav.Link as={Link} to="login">Login</Nav.Link>:<Nav.Link onClick={handleLogOut}>Logout</Nav.Link>}   
+                {/* <Nav.Link as={Link} to="create-account">Create Account</Nav.Link> */}
                 <Nav.Link as={Link} to="dashboard">Dashboard</Nav.Link>
                {isAdmin?<Nav.Link as={Link} to="personnel">Personnel</Nav.Link> : null} 
               </Nav>

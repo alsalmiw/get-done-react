@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useContext} from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import UserContext from "../Context/UserContext";
+import { createAccount } from '../Services/DataServices';
 
 export default function CreateAccount() {
+
+  let {username, setUsername, password, setPassword} = useContext(UserContext);
+  
+  const handleSubmit =() => {
+
+    let userData = {
+      Id : 0,
+      username,
+      password
+    }
+    createAccount(userData);
+  }
+
   return (
     //create the create account page and the login page!
     //background purple
@@ -16,13 +31,13 @@ export default function CreateAccount() {
         <Col md={10} className="">
           <Form>
             <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Control type="text" placeholder="Username" />
+              <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)}/>
             </Form.Group>
             <div className="d-flex justify-content-center">
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onClick={handleSubmit}>
                 Create
               </Button>
             </div>
