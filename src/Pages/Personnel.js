@@ -12,8 +12,9 @@ function Personnel() {
     { Id: 3, Username: "John", isAdmin: true, isOwner: false, isRevoked: true },
     { Id: 4, Username: "Peter", isAdmin: true, isOwner: false, isRevoked: false },
     { Id: 5, Username: "Jesse", isAdmin: true, isOwner: false, isRevoked: false },
-    { Id: 6, Username: "An", isAdmin: false, isOwner: false, isRevoked: true },
-    { Id: 7, Username: "Neither", isAdmin: false, isOwner: false, isRevoked: false }
+    { Id: 6, Username: "An", isAdmin: false, isOwner: false, isRevoked: false },
+    { Id: 7, Username: "aaa", isAdmin: false, isOwner: false, isRevoked: false },
+    { Id: 8, Username: "Hector", isAdmin: true, isOwner: false, isRevoked: true }
   ];
   //Owner is an Admin, isAdmin is a project manager
 
@@ -52,8 +53,8 @@ function Personnel() {
                               <td className="text-center">{user.Username}</td>
                               <td className="text-center">
                                 {
-                                    user.isOwner == true ? "Owner" :
-                                    user.isAdmin == true ? "Admin" : "Specialist"
+                                  user.isOwner == true ? "Owner" :
+                                  user.isAdmin == true ? "Admin" : "Specialist"
                                 }
                               </td>
                               <td className="text-center">
@@ -61,9 +62,9 @@ function Personnel() {
                                   user.isOwner == false ?
                                     <Button variant="primary">
                                       {
-                                        user.isAdmin == true ? "Change Role To Specialist" 
-                                        :
-                                        "Change Role To Admin"
+                                        user.isAdmin == true ? "Change Role To Specialist"
+                                          :
+                                          "Change Role To Admin"
                                       }
                                     </Button>
                                     :
@@ -107,13 +108,16 @@ function Personnel() {
                             <tr>
                               <td className="text-center">{user.Id}</td>
                               <td className="text-center">{user.Username}</td>
-                              <td className="text-center">Revoked Access</td>
+                              <td className="text-center">
+                                {
+                                  user.isAdmin == true ? "Admin" : "Specialist"
+                                }
+                              </td>
                               <td className="text-center">
                                 <Button variant="primary">Give User Access</Button>
                               </td>
                               <td className="text-center">
-                              <Button variant="danger">Remove User</Button>
-
+                                <Button variant="danger">Remove User</Button>
                               </td>
                             </tr>
                             : null
