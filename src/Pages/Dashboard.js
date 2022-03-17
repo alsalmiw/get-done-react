@@ -23,6 +23,9 @@ export default function Dashboard() {
   {
     navigate('/login');
   }
+  else{
+    
+  }
   
   },[])
 

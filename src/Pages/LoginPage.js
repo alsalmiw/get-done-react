@@ -7,7 +7,7 @@ import {login, GetLoggedInUserData} from "../Services/DataServices";
 
 export default function LoginPage() {
     let navigate = useNavigate();
-    let {username, setUsername, password, setPassword, token, setToken, setUserId} = useContext(UserContext);
+    let {username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken} = useContext(UserContext);
 
     const handleSubmit =async () => {
         console.log("hello")
@@ -22,8 +22,19 @@ export default function LoginPage() {
           setToken(loginToken.token)
           setUsername(username);
           let userData = await GetLoggedInUserData(username);
-          
+          if(!userData.isRevoked || !userData.isDeleted)
+          {
+               console.log(userData.isAdmin)
+          setUserId(userData.id)
+          setUsername(userData.username)
+          setIsAdmin(userData.isAdmin)
+          setIsOwner(userData.isOwner)
           navigate('/');
+          }
+          else{
+              setToken(null)
+          }
+         
         }
       }
 

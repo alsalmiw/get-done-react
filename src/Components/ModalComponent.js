@@ -38,8 +38,14 @@ const handleCreateProject = async() => {
 
     if (result)
     {
-      let projects = getProjectItemsByUserId(userId)
-      setAllProject(projects)
+      let projects;
+     
+      if(isAdmin)
+      {
+        projects = getProjectItemsByUserId(userId)
+        setAllProject(projects)
+      }
+      
     }
 
 }

@@ -93,7 +93,7 @@ async function updateProjectDetails(updatedProject)
 
 async function GetLoggedInUserData(username)
 {
-    let result = await fetch(`http://localhost:5262/User/UserInfo/${username}`);
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/GetUserByUsername/${username}`);
     let data = await result.json();
    let userData = data;
    //save information into a provider

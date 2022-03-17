@@ -5,9 +5,9 @@ export default function useUser(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [userId, setUserId] = useState('');
-    const [isAdmin, setIsAdmin] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
-    const [token, setToken] = useState("null");
+    const [token, setToken] = useState(null);
 
-    return {username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, token, setToken}
+    return {username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken}
 }
