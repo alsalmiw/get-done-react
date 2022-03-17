@@ -16,7 +16,7 @@ export default function useModal() {
     const [projectId, setProjectId]=useState(0);
     const [isProjectDeleted, setIsProjectDeleted]=useState(false);
     const [isProjectArchived, setIsProjectArchived]=useState(false)
-    const [projectPriority, setProjectPriority] = useState("ToDo");
+    const [priorityOfProject, setpriorityOfProject] = useState("ToDo");
     const [projectName, setProjectName] = useState("");
     const [projectStatus, setProjectStatus] = useState("");
     const [projectDueDate, setProjectDueDate] = useState("");
@@ -34,7 +34,7 @@ export default function useModal() {
 
   return {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID}

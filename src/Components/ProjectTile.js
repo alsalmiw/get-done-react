@@ -9,7 +9,7 @@ export default function ProjectTile({project, idx}) {
   let {isAdmin} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID} = useContext(ModalContext);
@@ -44,7 +44,7 @@ export default function ProjectTile({project, idx}) {
         <p><strong>Description: </strong>{project.projectDescription} </p>
         </div>
         <p><strong>Priority: </strong> 
-         {project.projectPriority=="High"? <span className="red">{project.projectPriority}</span>: project.projectPriority=="Medium"?<span className="orange">{project.projectPriority}</span>: <span className="green">{project.projectPriority}</span>}
+         {project.priorityOfProject=="High"? <span className="red">{project.priorityOfProject}</span>: project.priorityOfProject=="Medium"?<span className="orange">{project.priorityOfProject}</span>: <span className="green">{project.priorityOfProject}</span>}
         
          </p>
         <p><strong>Progress: </strong> 60%</p>
@@ -53,7 +53,7 @@ export default function ProjectTile({project, idx}) {
           handleViewShow()
           setProjectId(project.projectId)
         setProjectName(project.projectName)
-        setProjectPriority(project.projectPriority)
+        setpriorityOfProject(project.priorityOfProject)
         setProjectStatus(project.projectStatus)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)
@@ -64,7 +64,7 @@ export default function ProjectTile({project, idx}) {
         handleEditShow()
         setProjectId(project.projectId)
         setProjectName(project.projectName)
-        setProjectPriority(project.projectPriority)
+        setpriorityOfProject(project.priorityOfProject)
         setProjectStatus(project.projectStatus)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)

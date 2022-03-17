@@ -8,7 +8,7 @@ export default function ModalComponent(props) {
   let {
     show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects
@@ -30,7 +30,7 @@ const handleCreateProject = async() => {
       dateCreate: new Date(),
       projectDueDate,
       projectStatus,
-      projectPriority,
+      priorityOfProject,
       isProjectDeleted: false,
       isProjectArchived: false,
   }
@@ -42,11 +42,10 @@ const handleCreateProject = async() => {
     {
       let projects;
      
-      if(isAdmin)
-      {
+      
         projects = getProjectItemsByUserId(userId)
         setAllProjects(projects)
-      }
+      
       
     }
 
@@ -61,7 +60,7 @@ const handleUpdateProject = async () => {
     dateCreated: new Date(),
     projectDueDate,
     projectStatus,
-    projectPriority,
+    priorityOfProject,
     isProjectDeleted,
     isProjectArchived,
 }
@@ -109,8 +108,8 @@ const handleUpdateProject = async () => {
                   <Form.Label>Priority</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    value={projectPriority}
-                    onChange={(e) => setProjectPriority(e.target.value)}
+                    value={priorityOfProject}
+                    onChange={(e) => setpriorityOfProject(e.target.value)}
                   >
                     <option>Priority</option>
                     <option value="Top">Top</option>
@@ -140,7 +139,7 @@ const handleUpdateProject = async () => {
               <p>{projectDescription}</p>
             </Row>
             <Row>
-              <p>Priority: {projectPriority} </p>
+              <p>Priority: {priorityOfProject} </p>
             </Row>
             <Row>
               <Form>

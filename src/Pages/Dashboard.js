@@ -14,7 +14,7 @@ export default function Dashboard() {
   let navigate = useNavigate();
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    projectPriority, setProjectPriority, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects, setAllProjectsByID} = useContext(ModalContext)
@@ -35,8 +35,9 @@ export default function Dashboard() {
   //       {
   //         setAllProjectsByID(projects)
   //       }
-  //     }
+  // //     }
  //}
+
   
   },[])
 
@@ -50,7 +51,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"Completed",
-      projectPriority:"High",
+      priorityOfProject:"High",
       isProjectDeleted: false,
       isProjectArchived: false,
     },
@@ -62,7 +63,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"Completed",
-      projectPriority:"Low",
+      priorityOfProject:"Low",
       isProjectDeleted: false,
       isProjectArchived: false,
     },
@@ -74,7 +75,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"InProgress",
-      projectPriority:"High",
+      priorityOfProject:"High",
       isProjectDeleted: false,
       isProjectArchived: false,
     },
@@ -86,7 +87,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"ToDo",
-      projectPriority:"Low",
+      priorityOfProject:"Low",
       isProjectDeleted: false,
       isProjectArchived: false,
     },
@@ -98,7 +99,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"InProgress",
-      projectPriority:"Medium",
+      priorityOfProject:"Medium",
       isProjectDeleted: true,
       isProjectArchived: false,
     },
@@ -110,7 +111,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"ToDo",
-      projectPriority:"Low",
+      priorityOfProject:"Low",
       isProjectDeleted: true,
       isProjectArchived: false,
     },
@@ -122,7 +123,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"Completed",
-      projectPriority:"High",
+      priorityOfProject:"High",
       isProjectDeleted: true,
       isProjectArchived: false,
     },
@@ -134,7 +135,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"ToDo",
-      projectPriority:"Medium",
+      priorityOfProject:"Medium",
       isProjectDeleted: false,
       isProjectArchived: false,
     },
@@ -146,7 +147,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"InProgress",
-      projectPriority:"Low",
+      priorityOfProject:"Low",
       isProjectDeleted: true,
       isProjectArchived: true,
     },
@@ -158,7 +159,7 @@ export default function Dashboard() {
       dateCreated: "2022-03-26",
       projectDueDate:"2022-03-26",
       projectStatus:"ToDo",
-      projectPriority:"High",
+      priorityOfProject:"High",
       isProjectDeleted: true,
       isProjectArchived: true,
     }
