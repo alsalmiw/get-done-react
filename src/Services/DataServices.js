@@ -58,7 +58,7 @@ async function createProject(newProject){
 
 async function getProjectItemsByUserId(userId)
 {
-    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/GetProjectById/${userId}`);
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/project/GetProjectByUserId/${userId}`);
     let data = await result.json();
     console.log(data)
     return data;
