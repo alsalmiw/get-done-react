@@ -7,7 +7,7 @@ function Personnel() {
   
   //The data has to be an array for the map method to
   let DummyData = [
-    {Id: 1, Username: "Jesse", role: "Project Manager"},
+    {Id: 1, Username: "Jesse", role: "Revoked Access"},
     {Id: 2, Username: "Walaa", role: "admin"},
     {Id: 3, Username: "Peter", role: "Project Manager"},
     {Id: 4, Username: "Jovann", role: "Specialist"},
@@ -16,11 +16,6 @@ function Personnel() {
     {Id: 7, Username: "John", role: "Revoked Access"},
     {Id: 8, Username: "Jamie", role: "Revoked Access"},
 
-  ];
-
-  let DummyDataRevokedAccess = [
-    {Id: 1, Username: "Jesse", role: "Revoked Access"},
-    {Id: 7, Username: "John", role: "Revoked Access"},
   ];
 
   useEffect(async () => {
