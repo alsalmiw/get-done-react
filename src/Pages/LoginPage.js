@@ -1,28 +1,28 @@
 import React, {useContext, useState} from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Nav } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import {login} from "../Services/DataServices"
+import {login} from "../Services/DataServices";
 
 
 export default function LoginPage() {
     let navigate = useNavigate();
-    let {username, setUsername} = useContext(UserContext);
-    const [password, setPassword] = useState('');
+    let {username, setUsername, password, setPassword, token, setToken, setUserId} = useContext(UserContext);
 
     const handleSubmit =async () => {
-
+        console.log("hello")
         let userData = {
           username,
           password
         }
-        let token = await login (userData)
-        console.log(token)
-        if (token.token !=null)
+        let loginToken = await login (userData)
+        console.log(loginToken)
+        if (loginToken.token !=null)
         {
-          localStorage.setItem("Token" , token.token)
+          setToken(loginToken.token)
           setUsername(username);
-          navigate('/dashboard');
+          
+          navigate('/');
         }
       }
 
@@ -45,12 +45,12 @@ export default function LoginPage() {
                             <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)} />
                         </Form.Group>
                         <div className="d-flex justify-content-center">
-                            <Button className="mt-4" variant="primary" type="submit" onClick={handleSubmit}>
+                            <Button className="mt-4" variant="primary" onClick={handleSubmit}>
                                 Login
                             </Button>
                         </div>
                         <div className="mt-3 d-flex justify-content-center">
-                            <p>Create Account?</p>
+                        <a onClick={()=>navigate('/create-account')}> <h6>Create Account</h6> </a>
                         </div>
                     </Form>
                 </Col>

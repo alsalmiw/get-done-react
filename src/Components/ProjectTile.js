@@ -26,6 +26,10 @@ export default function ProjectTile() {
     setIsEdit(true);
   }
 
+  const handleDeleteProject = () => {
+    console.log("first")
+  }
+
   return (
     <div className='project-container'>
         <div className='project-title center'><h4>TaskName: Airport Logistics</h4> </div>
@@ -40,7 +44,7 @@ export default function ProjectTile() {
       </Button>
       {isAdmin?<><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
       <Button className='m-1' variant="success" >Archive</Button>
-      <Button className='m-1' variant="danger" >Delete</Button>
+      <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button>
       
       </>
       : null}
