@@ -10,20 +10,20 @@ export default function useModal() {
     const [isTaskView, setIsTaskView]=useState(false);
     const [isTaskEdit, setIsTaskEdit]=useState(false);
 
-  const [projectPriority, setProjectPriority] = useState("ToDo");
-  const [projectName, setProjectName] = useState("");
-  const [projectStatus, setProjectStatus] = useState("");
-  const [projectDueDate, setprojectDueDate] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [taskPriority, setTaskPriority] = useState("low");
- 
-  const [taskDueDate, setTaskDueDate] = useState("");
-  const [taskStatus, setTaskStatus] = useState("");
-  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
-  const [isArchived, setIsArchived] = useState(false);
-  const [specialist, setSpecialist] = useState('')
+    const [projectPriority, setProjectPriority] = useState("ToDo");
+    const [projectName, setProjectName] = useState("");
+    const [projectStatus, setProjectStatus] = useState("");
+    const [projectDueDate, setprojectDueDate] = useState("");
+    const [projectDescription, setProjectDescription] = useState("");
+    const [taskName, setTaskName] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
+    const [taskPriority, setTaskPriority] = useState("low");
+  
+    const [taskDueDate, setTaskDueDate] = useState("");
+    const [taskStatus, setTaskStatus] = useState("");
+    const [isTaskDeleted, setIsTaskDeleted] = useState(false);
+    const [isArchived, setIsArchived] = useState(false);
+    const [specialist, setSpecialist] = useState('')
 
 
   return {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
