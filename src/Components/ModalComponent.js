@@ -2,41 +2,84 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Table, Accordion } from "react-bootstrap";
 import ModalContext from "../Context/ModalContext";
 import UserContext from "../Context/UserContext";
+import {createProject, getProjectItemsByUserId, updateProjectDetails} from "../Services/DataServices";
 
 export default function ModalComponent(props) {
   let {
-    show,
-    setShow,
-    isEdit,
-    setIsEdit,
-    isProjectView,
-    setIsProjectView,
-    isTaskView,
-    setIsTaskView,
-    isTaskEdit,
-    setIsTaskEdit,
+    show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
+    setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
+    projectPriority, setProjectPriority, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
+    taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
+    specialist, setSpecialist, allProjects, setAllProject
   } = useContext(ModalContext);
-  let { isAdmin } = useContext(UserContext);
+  let { isAdmin, userId } = useContext(UserContext);
 
-  const [priority, setPriority] = useState("ToDo");
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectStatus, setProjectStatus] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [taskPriority, setTaskPriority] = useState("low");
-  const [taskDueDate, setTaskDueDate] = useState("");
-  const [taskStatus, setTaskStatus] = useState("");
-  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
-  const [isArchived, setIsArchived] = useState(false);
-  const [specialist, setSpecialist] = useState('')
+  const handleClose = () => setShow(false); 
 
-  const handleClose = () => setShow(false);
+ 
+
+  
+const handleCreateProject = async() => {
+  
+  let newProject = {
+      Id : 0,
+      userId,
+      projectName,
+      projectDescription,
+      dateCreate: new Date(),
+      projectDueDate,
+      projectStatus,
+      projectPriority,
+      isProjectDeleted: false,
+      isProjectArchived: false,
+  }
+    setShow(false);
+    console.log(newProject)
+    let result = await createProject(newProject)
+
+    if (result)
+    {
+      let projects;
+     
+      if(isAdmin)
+      {
+        projects = getProjectItemsByUserId(userId)
+        setAllProject(projects)
+      }
+      
+    }
+
+}
+
+const handleUpdateProject = async () => {
+  let updateProject = {
+    projectId,
+    userId,
+    projectName,
+    projectDescription,
+    dateCreated: new Date(),
+    projectDueDate,
+    projectStatus,
+    projectPriority,
+    isProjectDeleted,
+    isProjectArchived,
+}
+
+  let result = await updateProjectDetails(updateProject);
+  if (result)
+  {
+    let projects = getProjectItemsByUserId(userId)
+      setAllProject(projects)
+  }
+}
+
+  
 
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>{isEdit ? "Edit Project" : "View Project"}</Modal.Title>
+        <Modal.Title>{isEdit && !isCreateProject ? "Edit Project" : isEdit && isCreateProject? "Create a Project": "View Project"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {isEdit ? (
@@ -49,7 +92,8 @@ export default function ModalComponent(props) {
                   <Form.Control
                     type="text"
                     placeholder="Project Title"
-                    onChange={(e) => setProjectTitle(e.target.value)}
+                    value={projectName}
+                    onChange={(e) => setProjectName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="Description">
@@ -57,6 +101,7 @@ export default function ModalComponent(props) {
                   <Form.Control
                     as="textarea"
                     rows={6}
+                    value={projectDescription}
                     onChange={(e) => setProjectDescription(e.target.value)}
                   />
                 </Form.Group>
@@ -64,7 +109,8 @@ export default function ModalComponent(props) {
                   <Form.Label>Priority</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    onChange={(e) => setPriority(e.target.value)}
+                    value={projectPriority}
+                    onChange={(e) => setProjectPriority(e.target.value)}
                   >
                     <option>Priority</option>
                     <option value="Top">Top</option>
@@ -77,7 +123,8 @@ export default function ModalComponent(props) {
                   <Form.Control
                     type="date"
                     placeholder="Due Date"
-                    onChange={(e) => setTaskDueDate(e.target.value)}
+                    value={projectDueDate}
+                    onChange={(e) => setProjectDueDate(e.target.value)}
                   />
                 </Form.Group>
               </Form>
@@ -87,13 +134,13 @@ export default function ModalComponent(props) {
           //show project
           <>
             <Row className="text-center">
-              <h6>Project Title</h6>
+              <h6>{projectName}</h6>
             </Row>
             <Row>
-              <p>Project Description</p>
+              <p>{projectDescription}</p>
             </Row>
             <Row>
-              <p>Priority: Top </p>
+              <p>Priority: {projectPriority} </p>
             </Row>
             <Row>
               <Form>
@@ -102,6 +149,7 @@ export default function ModalComponent(props) {
 
                   <Form.Select
                     aria-label="Default select example"
+                    value={projectStatus}
                     onChange={(e) => setProjectStatus(e.target.value)}
                   >
                     <option>Status</option>
@@ -113,18 +161,96 @@ export default function ModalComponent(props) {
               </Form>
             </Row>
             <Row>
-              <p>Due Date: 22-03-2022</p>
+              <p>Due Date: {projectDueDate}</p>
             </Row>
             <Row className="p-2">
              <Col sm={10}><h5>Tasks Information</h5></Col> 
              {
-               isAdmin?  <Col sm={2}><Button className='m-1' variant="info" >Create Task</Button></Col>:null
+               isAdmin? 
+
+               <>
+            
+            <Accordion>
+  <Accordion.Item eventKey="0">
+    <Accordion.Header className="purple-border">Create a New Task</Accordion.Header>
+    <Accordion.Body>
+     
+    
+              <Form>
+                <Form.Group className="mb-3" controlId="Title">
+                  <Form.Label>Task Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Project Title"
+                    value={taskName}
+                    onChange={(e) => setTaskName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Description">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={6}
+                    value={taskDescription}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Category">
+                  <Form.Label>Priority</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={taskPriority}
+                    onChange={(e) => setTaskPriority(e.target.value)}
+                  >
+                    <option>Priority</option>
+                    <option value="Top">Top</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Category">
+                  <Form.Label>Task Specialist</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={taskPriority}
+                    onChange={(e) => setTaskPriority(e.target.value)}
+                  >
+                    <option>Specialist</option>
+
+                    <option value="Top">Top</option>
+                    
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="Title">
+                  <Form.Label>Due Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Due Date"
+                    value={taskDueDate}
+                    onChange={(e) => setTaskDueDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Form>
+            
+         <Button className='m-1' variant="warning">Submit New Task</Button>
+
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+
+               </>
+              //  <Col sm={2}><Button className='m-1' variant="info" >Create Task</Button></Col>
+               
+               
+               
+               
+               :null
              }
              
               </Row>
               <Row>
               <Accordion>
-  <Accordion.Item eventKey="0">
+  <Accordion.Item eventKey="1">
     <Accordion.Header><h6>PROJ01 Things to do </h6></Accordion.Header>
     <Accordion.Body>
      <h5>Task Title: PROJ01 - Things to do </h5>
@@ -186,7 +312,8 @@ export default function ModalComponent(props) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary">Update Project</Button>
+        {isEdit && !isCreateProject ?  <Button variant="primary" onClick={handleUpdateProject}>Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>:  <Button variant="primary">Update Status</Button>}
+        
       </Modal.Footer>
     </Modal>
   );

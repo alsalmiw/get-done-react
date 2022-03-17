@@ -1,13 +1,15 @@
 import React, {useContext, useState} from 'react';
 import { Container, Row, Col, Form, Button, Nav } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
+import ModalContext from '../Context/ModalContext';
 import { useNavigate } from "react-router-dom";
-import {login} from "../Services/DataServices";
+import {login, GetLoggedInUserData, getProjectItemsByUserId, getAllProjects, GetAllUsersInfo} from "../Services/DataServices";
 
 
 export default function LoginPage() {
     let navigate = useNavigate();
-    let {username, setUsername, password, setPassword, token, setToken, setUserId} = useContext(UserContext);
+    let {username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken, allUsers, setAllUsers} = useContext(UserContext);
+    let {setAllProjects, setAllProjectsByID} = useContext(ModalContext)
 
     const handleSubmit =async () => {
         console.log("hello")
@@ -21,8 +23,37 @@ export default function LoginPage() {
         {
           setToken(loginToken.token)
           setUsername(username);
-          
+          let projects = await getProjectItemsByUserId(userId)
+        if(!projects==[])
+        {
+          setAllProjectsByID(projects)
+        }
+
+        let allProjects = await getAllProjects()
+        setAllProjects(allProjects)
+          let userData = await GetLoggedInUserData(username);
+          if(!userData.isRevoked || !userData.isDeleted)
+          {
+               console.log(userData.isAdmin)
+          setUserId(userData.id)
+          setUsername(userData.username)
+          setIsAdmin(userData.isAdmin)
+          setIsOwner(userData.isOwner)
           navigate('/');
+          if(isAdmin)
+          {
+              let personnelData = await GetAllUsersInfo()
+              if(!personnelData==[])
+              {
+                setAllUsers(personnelData)
+              }
+          }
+
+          }
+          else if (userData.isRevoked || userData.isDeleted){
+              setToken(null)
+          }
+         
         }
       }
 

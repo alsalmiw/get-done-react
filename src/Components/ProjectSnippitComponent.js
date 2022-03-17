@@ -1,13 +1,15 @@
 import React from 'react'
 import {Row, Col} from 'react-bootstrap'
 
-export default function ProjectSnippitComponent() {
+export default function ProjectSnippitComponent({project, idx}) {
+
+  
   return (
-    <div className='snippit-container'>
-        <Row><h5>Project Title</h5></Row>
-        <Row><h6>Project Description</h6></Row>
-        <Row><h6>Project Due Date</h6></Row>
-        <Row><h6>Project Priority</h6></Row>
+    <div key={idx} className='snippit-container'>
+        <Row><h4>{project.projectName}</h4></Row>
+        <Row><h6>{project.projectDescription}</h6></Row>
+        <Row><h6>Due Date {project.projectDueDate}</h6></Row>
+        <Row><h6> {project.projectPriority=="High"? <span className="red">{project.projectPriority} Priority</span>: project.projectPriority=="Medium"?<span className="orange">{project.projectPriority} Priority</span>: <span className="green">{project.projectPriority} Priority</span>} </h6></Row>
     </div>
   )
 }
