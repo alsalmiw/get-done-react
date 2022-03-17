@@ -10,23 +10,21 @@ import {getAllProjects} from '../Services/DataServices'
 export default function Home() {
   let navigate = useNavigate();
   let {token} = useContext(UserContext);
-  let {allProjects, setAllProjects} = useContext(ModalContext)
+  let { allProjects, setAllProjects} = useContext(ModalContext)
 
   useEffect(async()=> {
-
+console.log(allProjects)
      if (token == null)
   {
     navigate('/login');
   }
-  // else if(!token==null){
-  //   console.log("first")
-  //   let projects = await getAllProjects()
-  //   if(!projects==[])
-  //   {
-  //     setAllProjects(projects);
-  //     console.log("first")
-  //   }
-  //}
+
+    // let projects = await getAllProjects()
+    
+    //   setAllProjects(projects);
+   
+
+  
   },[])
 
   
@@ -161,20 +159,22 @@ export default function Home() {
     <div className='project-snippit-container'>
       
     {
-      !allProjects==[]?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.projectPriority=="High"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+      allProjects.length!=0?
+      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+            //allProjects.map((project, idx) => console.log(!project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"))
+
       :
       null
     }
      {
       !allProjects==[]?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.projectPriority=="Medium"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Medium"? <ProjectSnippitComponent project={project} idx={idx} />: null)
       :
       null
     }
      {
       !allProjects==[]?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.projectPriority=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
       :
       null
     }
