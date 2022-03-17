@@ -22,7 +22,7 @@ const handleCreateProject = async() => {
   
   let newProject = {
       Id : 0,
-      userId:2,
+      userId,
       projectName,
       projectDescription,
       dateCreate: new Date(),
