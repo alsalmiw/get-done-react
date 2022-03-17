@@ -10,7 +10,7 @@ import {getAllProjects} from '../Services/DataServices'
 export default function Home() {
   let navigate = useNavigate();
   let {token} = useContext(UserContext);
-  let {setAllProjects} = useContext(ModalContext)
+  let {allProjects, setAllProjects} = useContext(ModalContext)
 
   useEffect(async()=> {
 
@@ -18,138 +18,141 @@ export default function Home() {
   {
     navigate('/login');
   }
-  else{
-    let projects = await getAllProjects()
-    if(!projects==[])
-    {
-      setAllProjects(projects);
-    }
-  }
+  // else if(!token==null){
+  //   console.log("first")
+  //   let projects = await getAllProjects()
+  //   if(!projects==[])
+  //   {
+  //     setAllProjects(projects);
+  //     console.log("first")
+  //   }
+  //}
   },[])
 
-  let allProjects = [
+  
+  // let allProjects = [
 
-    {
-      Id : 1,
-      userId: 1,
-      projectName:"logistics",
-      projectDescription:"jksfhjj fsdklj ",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"Completed",
-      projectPriority:"High",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 2,
-      userId: 1,
-      projectName:"computers",
-      projectDescription:"sdfdsf sdfsdf dfgd g sdfg",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"Completed",
-      projectPriority:"Low",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 3,
-      userId: 1,
-      projectName:"desks",
-      projectDescription:"grsg  rgrsfrg ssg s ",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"InProgress",
-      projectPriority:"High",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 4,
-      userId: 1,
-      projectName:"chairs",
-      projectDescription:"dfgsgf srg gs  ",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"ToDo",
-      projectPriority:"Low",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 5,
-      userId: 1,
-      projectName:"monitors",
-      projectDescription:"ilggi;ugiguui jkgjkhg;iu",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"InProgress",
-      projectPriority:"Medium",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 6,
-      userId: 1,
-      projectName:"keyboards",
-      projectDescription:"fsdgfsg sdfg sg wgtwegt wer t ",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"ToDo",
-      projectPriority:"Low",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 7,
-      userId: 1,
-      projectName:"other stuff",
-      projectDescription:"sgg s gsfgsfgsrg sgsfgwrgtr trt",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"Completed",
-      projectPriority:"High",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 8,
-      userId: 1,
-      projectName:"laptops",
-      projectDescription:"sgggsgsg",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"ToDo",
-      projectPriority:"Medium",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 9,
-      userId: 1,
-      projectName:"iPhones",
-      projectDescription:"sdfbfb",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"InProgress",
-      projectPriority:"Low",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    },
-    {
-      Id : 10,
-      userId: 1,
-      projectName:"some more stuff",
-      projectDescription:"fbfbfb",
-      dateCreated: "2022-03-26",
-      projectDueDate:"2022-03-26",
-      projectStatus:"ToDo",
-      projectPriority:"High",
-      isProjectDeleted: false,
-      isProjectArchived: false,
-    }
-  ]
+  //   {
+  //     Id : 1,
+  //     userId: 1,
+  //     projectName:"logistics",
+  //     projectDescription:"jksfhjj fsdklj ",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"Completed",
+  //     projectPriority:"High",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 2,
+  //     userId: 1,
+  //     projectName:"computers",
+  //     projectDescription:"sdfdsf sdfsdf dfgd g sdfg",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"Completed",
+  //     projectPriority:"Low",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 3,
+  //     userId: 1,
+  //     projectName:"desks",
+  //     projectDescription:"grsg  rgrsfrg ssg s ",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"InProgress",
+  //     projectPriority:"High",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 4,
+  //     userId: 1,
+  //     projectName:"chairs",
+  //     projectDescription:"dfgsgf srg gs  ",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"ToDo",
+  //     projectPriority:"Low",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 5,
+  //     userId: 1,
+  //     projectName:"monitors",
+  //     projectDescription:"ilggi;ugiguui jkgjkhg;iu",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"InProgress",
+  //     projectPriority:"Medium",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 6,
+  //     userId: 1,
+  //     projectName:"keyboards",
+  //     projectDescription:"fsdgfsg sdfg sg wgtwegt wer t ",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"ToDo",
+  //     projectPriority:"Low",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 7,
+  //     userId: 1,
+  //     projectName:"other stuff",
+  //     projectDescription:"sgg s gsfgsfgsrg sgsfgwrgtr trt",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"Completed",
+  //     projectPriority:"High",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 8,
+  //     userId: 1,
+  //     projectName:"laptops",
+  //     projectDescription:"sgggsgsg",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"ToDo",
+  //     projectPriority:"Medium",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 9,
+  //     userId: 1,
+  //     projectName:"iPhones",
+  //     projectDescription:"sdfbfb",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"InProgress",
+  //     projectPriority:"Low",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   },
+  //   {
+  //     Id : 10,
+  //     userId: 1,
+  //     projectName:"some more stuff",
+  //     projectDescription:"fbfbfb",
+  //     dateCreated: "2022-03-26",
+  //     projectDueDate:"2022-03-26",
+  //     projectStatus:"ToDo",
+  //     projectPriority:"High",
+  //     isProjectDeleted: false,
+  //     isProjectArchived: false,
+  //   }
+  // ]
   
 
   return (

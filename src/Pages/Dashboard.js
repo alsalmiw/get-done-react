@@ -6,6 +6,7 @@ import ProjectTile from '../Components/ProjectTile';
 import ModalContext from '../Context/ModalContext';
 import useModal from '../Hooks/use-modal';
 import ModalComponent from '../Components/ModalComponent';
+import {getProjectItemsByUserId} from "../Services/DataServices"
 
 export default function Dashboard() {
 
@@ -16,13 +17,26 @@ export default function Dashboard() {
     projectPriority, setProjectPriority, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
-    specialist, setSpecialist,  setAllProject} = useContext(ModalContext)
-  useEffect(()=> {
+    specialist, setSpecialist, allProjects, setAllProjects, setAllProjectsByID} = useContext(ModalContext)
+  useEffect(async ()=> {
 
      if (token == null)
   {
     navigate('/login');
   }
+  // else if (!token==null){
+  //     if(isAdmin)
+  //     {
+  //       setAllProjectsByID(allProjects)
+  //     }
+  //     else{
+  //       let projects = await getProjectItemsByUserId(userId)
+  //       if(!projects==[])
+  //       {
+  //         setAllProjectsByID(projects)
+  //       }
+  //     }
+ //}
   
   },[])
 

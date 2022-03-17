@@ -93,7 +93,7 @@ async function updateProjectDetails(updatedProject)
 
 async function GetLoggedInUserData(username)
 {
-    let result = await fetch(`http://localhost:5262/User/UserInfo/${username}`);
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/GetUserByUsername/${username}`);
     let data = await result.json();
    let userData = data;
    //save information into a provider
@@ -101,4 +101,14 @@ async function GetLoggedInUserData(username)
    return userData;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData }
+async function GetAllUsersInfo()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/GetAllUsers`);
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
+export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData, GetAllUsersInfo }
