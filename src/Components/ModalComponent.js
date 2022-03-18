@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Table, Accordion } from "react-bootstrap";
 import ModalContext from "../Context/ModalContext";
 import UserContext from "../Context/UserContext";
-import {createProject, getProjectItemsByUserId, updateProjectDetails, AddTask, GetAllTasks} from "../Services/DataServices";
+import {createProject, getProjectItemsByUserId, updateProjectDetails, AddTask, GetAllTasks, deleteTask} from "../Services/DataServices";
 
 export default function ModalComponent(props) {
   let {
@@ -73,6 +73,11 @@ console.log(updateProject)
   }
 }
 
+const handleUpdateProjectStatus = async() => {
+
+    //send request for endpoint takes in status and project id
+}
+
   const handleSubmitNewTask = async() =>{
 
     let newTask = {
@@ -119,6 +124,23 @@ let updateTask ={
     }
 
   }
+
+  const handleUpdateTaskStatus = async() => {
+      //should i just delete that and only allow person to delete task and create new one?
+  
+  }
+
+  const handleDeleteTask = async (task)=>{
+
+    let result = await deleteTask(task)
+    if (result)
+    {
+      let tasks = await GetAllTasks()
+      //set all tasks
+    }
+
+  }
+
 
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -345,7 +367,7 @@ let updateTask ={
 
      <Button variant="outline-primary" onClick={handleUpdateTask}>Update Task</Button>
      {
-       isAdmin? <> <Button variant="outline-danger">Delete Task</Button></>:null
+       isAdmin? <> <Button variant="outline-danger" onClick={()=>{handleDeleteTask()}}>Delete Task</Button></>:null
      }
     </Accordion.Body>
   </Accordion.Item>
@@ -361,7 +383,7 @@ let updateTask ={
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        {isEdit && !isCreateProject ?  <Button variant="primary" onClick={handleUpdateProject}>Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>:  <Button variant="primary">Update Status</Button>}
+        {isEdit && !isCreateProject ?  <Button variant="primary" onClick={handleUpdateProject}>Update Project</Button> : isEdit && isCreateProject?  <Button variant="primary" onClick={handleCreateProject}>Create</Button>:  <Button variant="primary" onClick={handleUpdateProjectStatus}>Update Project Status</Button>}
         
       </Modal.Footer>
     </Modal>
