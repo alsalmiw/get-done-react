@@ -140,6 +140,25 @@ async function AddTask(task)
     return data;
 }
 
+async function ChangeStatus(url, status)
+{
+    let res= await fetch(`https://task-tracker-web-app.azurewebsites.net/Task/${url}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(status)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
 async function GetLoggedInUserData(username)
 {
     let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/user/GetUserByUsername/${username}`);
@@ -253,4 +272,4 @@ async function ChangeRevokeUserAccess(id)
 
 
 
-export { login, getProjectItemsByUserId, createAccount, createProject, deleteTask, AddTask, updateTask, GetAllTasks, updateProjectDetails, getAllProjects, ArchiveDeleteProject, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken }
+export { login, getProjectItemsByUserId, createAccount, createProject, deleteTask, AddTask, updateTask, GetAllTasks, updateProjectDetails, getAllProjects, ArchiveDeleteProject, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken, ChangeStatus }

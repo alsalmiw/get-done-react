@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Modal, Button, Row, Col, Form, Table, Accordion } from "react-bootstrap";
 import ModalContext from "../Context/ModalContext";
 import UserContext from "../Context/UserContext";
-import {createProject, getProjectItemsByUserId, updateProjectDetails, AddTask, GetAllTasks, deleteTask} from "../Services/DataServices";
+import {createProject, getProjectItemsByUserId, updateProjectDetails, AddTask, GetAllTasks, deleteTask, GetAllUsersInfo, ChangeStatus, getAllProjects} from "../Services/DataServices";
 
 export default function ModalComponent(props) {
+
+  
   let {
     show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
@@ -13,7 +15,24 @@ export default function ModalComponent(props) {
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID
   } = useContext(ModalContext);
-  let { isAdmin, userId } = useContext(UserContext);
+  let { isAdmin, userId, allUsers, setAllUsers } = useContext(UserContext);
+
+  useEffect(async () => {
+    let personnel = await GetAllUsersInfo();
+    
+    if(personnel.length!=0)
+    {
+      setAllUsers(personnel)
+    }
+
+    let allTasks = GetAllTasks()
+
+    if(!allTasks.length == 0)
+    {
+
+    }
+    
+  }, [])
 
   const handleClose = () => setShow(false); 
 
@@ -41,7 +60,7 @@ const handleCreateProject = async() => {
     {
       
       console.log(userId)
-      
+
         let projects = await getProjectItemsByUserId(userId)
         setAllProjectsByID(projects)
       
@@ -68,14 +87,38 @@ console.log(updateProject)
   console.log(result)
   if (result)
   {
-    let projects = await getProjectItemsByUserId(userId)
+   if (isAdmin){
+    let projects = await getAllProjects()
     setAllProjectsByID(projects)
+   }else{
+     let projects = await getProjectItemsByUserId(userId)
+    setAllProjectsByID(projects)
+   }
+    
   }
 }
 
-const handleUpdateProjectStatus = async() => {
+const handleUpdateProjectStatus = async(status, projectId) => {
+   let result = ChangeStatus(` UpdateProjectStatus/${projectId}/${status}`)
 
-    //send request for endpoint takes in status and project id
+   if (result)
+   {
+     if(isAdmin)
+     {
+      let projects = await getAllProjects()
+      if(!projects.length==0)
+      {
+        setAllProjectsByID(projects)
+      }
+        
+     }else{
+       let projects = await getProjectItemsByUserId(userId)
+       if(!projects.length==0)
+       {
+         setAllProjectsByID(projects)
+       }
+     }
+   }
 }
 
   const handleSubmitNewTask = async() =>{
@@ -99,6 +142,12 @@ const handleUpdateProjectStatus = async() => {
     // if(result){
     //   let tasks= await GetAllTasks()
     // }
+
+    setTaskName('')
+    setTaskDescription('')
+    setTaskDueDate('')
+    setSpecialist('')
+    setTaskPriority('')
     
   }
 
@@ -283,7 +332,14 @@ let updateTask ={
                   >
                     <option>Specialist</option>
 
-                    <option value="Top">Top</option>
+                    {
+                      allUsers.map((user, idx)=> 
+
+                        <option value={user.id}>{user.username}</option>
+                      )
+                    }
+
+                    
                     
                   </Form.Select>
                 </Form.Group>
@@ -339,7 +395,12 @@ let updateTask ={
                             onChange={(e) => setSpecialist(e.target.value)}
                           >
                             <option>Specialist</option>
-                            <option value="PersonName">userName</option>
+                            {
+                      allUsers.map((user, idx)=> 
+
+                        <option value={user.id}>{user.username}</option>
+                      )
+                    }
                             
                           </Form.Select>
                         </Form.Group>
@@ -365,7 +426,7 @@ let updateTask ={
    
     
 
-     <Button variant="outline-primary" onClick={handleUpdateTask}>Update Task</Button>
+     <Button variant="outline-primary" onClick={()=>handleUpdateTask()}>Update Task</Button>
      {
        isAdmin? <> <Button variant="outline-danger" onClick={()=>{handleDeleteTask()}}>Delete Task</Button></>:null
      }
