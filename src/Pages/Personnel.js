@@ -23,6 +23,7 @@ function Personnel() {
 
   useEffect(async () => {
     let personnel = await GetAllUsersInfo();
+    
     if(personnel.length!=0)
     {
       setAllUsers(personnel)
@@ -30,20 +31,60 @@ function Personnel() {
     // SetUserPersonnel(DummyData);
   }, [])
 
-  const handleUserRole = async() => {
-
-  }
-
-  const handleRevokeAccess = async() => {
-
-  }
-
-  const handleReturnAccess = async() => {
-
-  }
-
-  const handleRemoveUser = async() => {
+  const handleUserRole = async(id) => {
+    //ChangeRole  id
+    let result  = await ChangeRole(id)
+    console.log(result)
+    if(result)
+    {
+      let personnel = await GetAllUsersInfo();
+    if(personnel.length!=0)
+    {
+      setAllUsers(personnel)
+    }
+    }
     
+  }
+
+  const handleRevokeAccess = async(id) => {
+    //ChangeRevokeUserAccess id
+    let result  = await ChangeRevokeUserAccess(id)
+    if(result)
+    {
+      let personnel = await GetAllUsersInfo();
+    if(personnel.length!=0)
+    {
+      setAllUsers(personnel)
+    }
+    }
+  }
+
+  const handleReturnAccess = async(id) => {
+    //ChangeRevokeUserAccess id
+    let result  = await ChangeRevokeUserAccess(id)
+    console.log(result)
+    if(result)
+    {
+      let personnel = await GetAllUsersInfo();
+    if(personnel.length!=0)
+    {
+      setAllUsers(personnel)
+    }
+    }
+  }
+
+  const handleRemoveUser = async(username) => {
+    //DeleteUser username
+    let result  = await DeleteUser(username)
+    console.log(result)
+    if(result)
+    {
+      let personnel = await GetAllUsersInfo();
+    if(personnel.length!=0)
+    {
+      setAllUsers(personnel)
+    }
+    }
   }
 
 
@@ -85,7 +126,7 @@ function Personnel() {
                               <td className="text-center">
                                 {
                                   user.isOwner == false ?
-                                    <Button variant="primary" onClick={handleUserRole}>
+                                    <Button variant="primary" onClick={()=>handleUserRole(user.id)}>
                                       {
                                         user.isAdmin == true ? "Change Role To Specialist"
                                           :
@@ -99,7 +140,7 @@ function Personnel() {
                               <td className="text-center">
                                 {
                                   user.isOwner == false ?
-                                    <Button variant="danger" onClick={handleRevokeAccess}>Revoke Access</Button>
+                                    <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button>
                                     : "N/A"
                                 }
                               </td>
@@ -135,14 +176,14 @@ function Personnel() {
                               <td className="text-center">{user.username}</td>
                               <td className="text-center">
                                 {
-                                  user.isAdmin == true ? "Admin" : "Specialist"
+                                  user.isAdmin == true ? "Manager" : "Specialist"
                                 }
                               </td>
                               <td className="text-center">
-                                <Button variant="primary" onClick={handleReturnAccess}>Give User Access</Button>
+                                <Button variant="primary" onClick={()=>handleReturnAccess(user.id)}>Give User Access</Button>
                               </td>
                               <td className="text-center">
-                                <Button variant="danger" onClick={handleRemoveUser}>Remove User</Button>
+                                <Button variant="danger" onClick={()=>handleRemoveUser(user.username)}>Remove User</Button>
                               </td>
                             </tr>
                             : null
