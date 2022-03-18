@@ -69,6 +69,7 @@ const handleCreateProject = async() => {
 
 }
 
+//update project, does not take in the user.Id
 const handleUpdateProject = async () => {
   let updateProject = {
     id: projectId,
@@ -82,6 +83,7 @@ const handleUpdateProject = async () => {
     isProjectDeleted,
     isProjectArchived,
 }
+console.log(updateProject.id);
 console.log(updateProject)
   let result = await updateProjectDetails(updateProject);
   console.log(result)
@@ -99,7 +101,7 @@ console.log(updateProject)
 }
 
 const handleUpdateProjectStatus = async(status, projectId) => {
-   let result = ChangeStatus(` UpdateProjectStatus/${projectId}/${status}`)
+   let result = ChangeStatus(`UpdateProjectStatus/${projectId}/${status}`)
 
    if (result)
    {
