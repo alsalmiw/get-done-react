@@ -8,10 +8,10 @@ export default function ModalComponent(props) {
   let {
     show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    priorityOfProject, setpriorityOfProject, projectName, setProjectName, projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, statusOfProject, setstatusOfProject, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
-    specialist, setSpecialist, allProjects, setAllProjects
+    specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID
   } = useContext(ModalContext);
   let { isAdmin, userId } = useContext(UserContext);
 
@@ -28,8 +28,8 @@ const handleCreateProject = async() => {
       projectName,
       projectDescription,
       dateCreate: new Date(),
-      projectDueDate,
-      projectStatus,
+      dueDate: projectDueDate,
+      statusOfProject:"ToDo",
       priorityOfProject,
       isProjectDeleted: false,
       isProjectArchived: false,
@@ -41,7 +41,7 @@ const handleCreateProject = async() => {
     if (result)
     {
       let projects;
-     
+      console.log(userId)
       
         projects = getProjectItemsByUserId(userId)
         setAllProjects(projects)
@@ -59,7 +59,7 @@ const handleUpdateProject = async () => {
     projectDescription,
     dateCreated: new Date(),
     projectDueDate,
-    projectStatus,
+    statusOfProject,
     priorityOfProject,
     isProjectDeleted,
     isProjectArchived,
@@ -148,8 +148,8 @@ const handleUpdateProject = async () => {
 
                   <Form.Select
                     aria-label="Default select example"
-                    value={projectStatus}
-                    onChange={(e) => setProjectStatus(e.target.value)}
+                    value={statusOfProject}
+                    onChange={(e) => setstatusOfProject(e.target.value)}
                   >
                     <option>Status</option>
                     <option value="ToDo">ToDo</option>

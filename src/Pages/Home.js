@@ -4,25 +4,28 @@ import ProjectSnippitComponent from '../Components/ProjectSnippitComponent';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
-import {getAllProjects} from '../Services/DataServices'
+import {getAllProjects, checkToken} from '../Services/DataServices'
 
 
 export default function Home() {
   let navigate = useNavigate();
-  let {token} = useContext(UserContext);
+  let {token, username} = useContext(UserContext);
   let { allProjects, setAllProjects} = useContext(ModalContext)
+
 
   useEffect(async()=> {
 console.log(allProjects)
-     if (token == null)
+     if (!checkToken())
   {
     navigate('/login');
   }
+  else{
 
-    // let projects = await getAllProjects()
-    
-    //   setAllProjects(projects);
-   
+      let projects = await getAllProjects()
+    console.log(username)
+      setAllProjects(projects);
+  }
+
 
   
   },[])

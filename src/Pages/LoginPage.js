@@ -22,15 +22,10 @@ export default function LoginPage() {
         if (loginToken.token !=null)
         {
           setToken(loginToken.token)
-          //setUsername(username);
-          
+            localStorage.setItem("Token" , loginToken.token)
             console.log("goes in")
           let userInfo = await GetLoggedInUserData(username);
             console.log(userInfo.id)
-          
-
-
-        //   setTimeout(async() => {
               
             if(!userInfo.isRevoked || !userInfo.isDeleted)
                     {
@@ -48,7 +43,7 @@ export default function LoginPage() {
                 
                         let allProjects = await getAllProjects()
                         setAllProjects(allProjects)
-                        navigate('/');
+                      
 
                     if(isAdmin)
                     {
@@ -58,13 +53,14 @@ export default function LoginPage() {
                             setAllUsers(personnelData)
                         }
                     }
+                   
 
                     }
                     else if (userInfo.isRevoked || userInfo.isDeleted){
                         setToken(null)
                     }
 
-                   
+                     navigate('/');
                        
                       
                        

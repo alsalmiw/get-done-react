@@ -2,7 +2,7 @@ import React from 'react'
 import {Row, Col} from 'react-bootstrap'
 
 export default function ProjectSnippitComponent({project, idx}) {
-console.log(project)
+//console.log(project)
   
   return (
     <div key={idx} className='snippit-container'>

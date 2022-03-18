@@ -5,11 +5,11 @@ import ModalContext from '../Context/ModalContext';
 import ModalComponent from './ModalComponent';
 
 export default function ProjectTile({project, idx}) {
-  console.log(project.Id)
+  //console.log(project.Id)
   let {isAdmin} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
-    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, projectStatus, setProjectStatus, projectDueDate, setProjectDueDate,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, statusOfProject, setstatusOfProject, projectDueDate, setProjectDueDate,
     projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
     taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
     specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID} = useContext(ModalContext);
@@ -33,7 +33,7 @@ export default function ProjectTile({project, idx}) {
   }
 
   const handleDeleteProject = () => {
-    console.log("first")
+    //console.log("first")
   }
 
   return (
@@ -54,7 +54,7 @@ export default function ProjectTile({project, idx}) {
           setProjectId(project.projectId)
         setProjectName(project.projectName)
         setpriorityOfProject(project.priorityOfProject)
-        setProjectStatus(project.projectStatus)
+        setstatusOfProject(project.statusOfProject)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)
         }}>
@@ -65,7 +65,7 @@ export default function ProjectTile({project, idx}) {
         setProjectId(project.projectId)
         setProjectName(project.projectName)
         setpriorityOfProject(project.priorityOfProject)
-        setProjectStatus(project.projectStatus)
+        setstatusOfProject(project.statusOfProject)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)
         }}>Edit</Button>
