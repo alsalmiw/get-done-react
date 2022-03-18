@@ -86,12 +86,49 @@ async function getAllProjects()
 
 async function updateProjectDetails(updatedProject)
 {
-    let res= await fetch('https://task-tracker-web-app.azurewebsites.net/project/createproject', {
+    let res= await fetch('https://task-tracker-web-app.azurewebsites.net/project/UpdateProject', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedProject)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+async function ArchiveDeleteProject(project, link)
+{
+    let res= await fetch(link, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(project)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+async function AddTask(task)
+{
+    let res= await fetch(`https://task-tracker-web-app.azurewebsites.net/Task/createTask`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(task)
     });
     if(!res.ok)
     {
@@ -122,6 +159,40 @@ async function GetAllUsersInfo()
    console.log(userData);
    return userData;
 }
+
+async function GetAllTasks()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/GetAllTasks`);
+    //does not exist yet
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
+async function updateTask()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/UpdateTask`);
+    //does not exist yet
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
+async function deleteTask()
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/DeleteTask`);
+    //does not exist yet
+    let data = await result.json();
+   let userData = data;
+   //save information into a provider
+   console.log(userData);
+   return userData;
+}
+
 
 async function DeleteUser(userToDelete)
 {
@@ -180,4 +251,4 @@ async function ChangeRevokeUserAccess(id)
     return data;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, updateProjectDetails, getAllProjects, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken }
+export { login, getProjectItemsByUserId, createAccount, createProject, deleteTask, AddTask, updateTask, GetAllTasks, updateProjectDetails, getAllProjects, ArchiveDeleteProject, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken }

@@ -8,7 +8,7 @@ export default function useModal() {
     const [isCreateProject, setIsCreateProject]=useState(false);
     const [isEditProject, setIsEditProject]=useState(false);
     const [isTaskView, setIsTaskView]=useState(false);
-    const [isTaskEdit, setIsTaskEdit]=useState(false);
+    const [isTaskEdit, setIsTaskEdit]=useState(true);
 
     const [allProjects, setAllProjects] = useState([])
     const [allProjectsByID, setAllProjectsByID]=useState([])

@@ -3,10 +3,11 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
 import ModalComponent from './ModalComponent';
+import {ArchiveDeleteProject, getProjectItemsByUserId} from '../Services/DataServices';
 
 export default function ProjectTile({project, idx}) {
   //console.log(project.Id)
-  let {isAdmin} = useContext(UserContext);
+  let {isAdmin, userId} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
     setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
     priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, statusOfProject, setstatusOfProject, projectDueDate, setProjectDueDate,
@@ -32,8 +33,19 @@ export default function ProjectTile({project, idx}) {
     setIsCreateProject(false)
   }
 
-  const handleDeleteProject = () => {
-    //console.log("first")
+  const handleDeleteProject = async () => {
+    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/DeleteProject')
+    if(result)
+    {
+      let projects = await getProjectItemsByUserId(userId)
+      setAllProjectsByID(project)
+    }
+  }
+
+  const handleArchiveProject = async() => {
+    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/ArchiveProject')
+    let projects = await getProjectItemsByUserId(userId)
+      setAllProjectsByID(project)
   }
 
   return (
@@ -51,7 +63,8 @@ export default function ProjectTile({project, idx}) {
         <div className='project-buttons'>
         <Button className='m-1' variant="primary" onClick={() => {
           handleViewShow()
-          setProjectId(project.projectId)
+          setProjectId(project.id)
+          console.log(project.id)
         setProjectName(project.projectName)
         setpriorityOfProject(project.priorityOfProject)
         setstatusOfProject(project.statusOfProject)
@@ -62,14 +75,15 @@ export default function ProjectTile({project, idx}) {
       </Button>
       {isAdmin?<><Button className='m-1' variant="warning" onClick={() => {
         handleEditShow()
-        setProjectId(project.projectId)
+        setProjectId(project.id)
+        console.log(project.id)
         setProjectName(project.projectName)
         setpriorityOfProject(project.priorityOfProject)
         setstatusOfProject(project.statusOfProject)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)
         }}>Edit</Button>
-      <Button className='m-1' variant="success" >Archive</Button>
+      <Button className='m-1' variant="success" onClick={handleArchiveProject}>Archive</Button>
       <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button>
       
       </>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Table, Accordion } from "react-bootstrap";
 import ModalContext from "../Context/ModalContext";
 import UserContext from "../Context/UserContext";
-import {createProject, getProjectItemsByUserId, updateProjectDetails} from "../Services/DataServices";
+import {createProject, getProjectItemsByUserId, updateProjectDetails, AddTask, GetAllTasks} from "../Services/DataServices";
 
 export default function ModalComponent(props) {
   let {
@@ -18,7 +18,6 @@ export default function ModalComponent(props) {
   const handleClose = () => setShow(false); 
 
  
-
   
 const handleCreateProject = async() => {
   
@@ -40,11 +39,11 @@ const handleCreateProject = async() => {
 
     if (result)
     {
-      let projects;
+      
       console.log(userId)
       
-        projects = getProjectItemsByUserId(userId)
-        setAllProjects(projects)
+        let projects = await getProjectItemsByUserId(userId)
+        setAllProjectsByID(projects)
       
       
     }
@@ -53,7 +52,7 @@ const handleCreateProject = async() => {
 
 const handleUpdateProject = async () => {
   let updateProject = {
-    projectId,
+    id: projectId,
     userId,
     projectName,
     projectDescription,
@@ -64,16 +63,62 @@ const handleUpdateProject = async () => {
     isProjectDeleted,
     isProjectArchived,
 }
-
+console.log(updateProject)
   let result = await updateProjectDetails(updateProject);
+  console.log(result)
   if (result)
   {
-    let projects = getProjectItemsByUserId(userId)
-      setAllProjects(projects)
+    let projects = await getProjectItemsByUserId(userId)
+    setAllProjectsByID(projects)
   }
 }
 
-  
+  const handleSubmitNewTask = async() =>{
+
+    let newTask = {
+      Id:0,
+      ProjectId: projectId,
+      TaskName:taskName,
+      TaskDateCreate:new Date(),
+      TaskDescription:taskDescription,
+      PriorityOfTask:taskPriority,
+      StatusOfTask:"ToDo",
+      TaskDueDate:taskDueDate,
+      TaskIsDeleted:false,
+      TaskisArchived:false
+    }
+
+    let result = await AddTask(newTask);
+    console.log(newTask)
+    console.log(result)
+    // if(result){
+    //   let tasks= await GetAllTasks()
+    // }
+    
+  }
+
+  const handleUpdateTask =async () => {
+let updateTask ={
+  Id:0,
+  ProjectId: projectId,
+  TaskName:taskName,
+  TaskDateCreate:new Date(),
+  TaskDescription:taskDescription,
+  PriorityOfTask:taskPriority,
+  StatusOfTask:taskStatus,
+  TaskDueDate:taskDueDate,
+  TaskIsDeleted: isTaskDeleted,
+  TaskisArchived: isArchived
+}
+
+    let result = await updateTask(updateTask);
+
+    if (result)
+    {
+      
+    }
+
+  }
 
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -130,7 +175,7 @@ const handleUpdateProject = async () => {
             </Row>
           </>
         ) : (
-          //show project
+          //show projectf
           <>
             <Row className="text-center">
               <h6>{projectName}</h6>
@@ -182,7 +227,7 @@ const handleUpdateProject = async () => {
                     type="text"
                     placeholder="Project Title"
                     value={taskName}
-                    onChange={(e) => setTaskName(e.target.value)}
+                    onChange={(e) => isTaskEdit? setTaskName(e.target.value): ""}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="Description">
@@ -212,7 +257,7 @@ const handleUpdateProject = async () => {
                   <Form.Select
                     aria-label="Default select example"
                     value={taskPriority}
-                    onChange={(e) => setTaskPriority(e.target.value)}
+                    onChange={(e) => setSpecialist(e.target.value)}
                   >
                     <option>Specialist</option>
 
@@ -231,7 +276,7 @@ const handleUpdateProject = async () => {
                 </Form.Group>
               </Form>
             
-         <Button className='m-1' variant="warning">Submit New Task</Button>
+         <Button className='m-1' variant="warning" onClick={handleSubmitNewTask}>Submit New Task</Button>
 
     </Accordion.Body>
   </Accordion.Item>
@@ -252,7 +297,17 @@ const handleUpdateProject = async () => {
   <Accordion.Item eventKey="1">
     <Accordion.Header><h6>PROJ01 Things to do </h6></Accordion.Header>
     <Accordion.Body>
-     <h5>Task Title: PROJ01 - Things to do </h5>
+     <h5>Task Title: PROJ01 - Things to do </h5> 
+     
+     <p><strong>Task Description: </strong>
+     {
+       isAdmin? 
+        <span contentEditable onKeyDown={(e) => console.log(e.target.textContent)}> we are doing the things </span>
+       :
+        "things to do"
+     }
+     </p>
+     
     {isAdmin? <><p><strong>Specialist: </strong></p>
           
     <Form>
@@ -286,17 +341,12 @@ const handleUpdateProject = async () => {
                         </Form.Group>
                       </Form>
    
-     <p><strong>Task Description: </strong>
-     {
-       isAdmin? 
-        <span contentEditable onKeyDown={(e) => console.log(e.target.textContent)}> we are doing the things </span>
-       :
-        "things to do"
-     }
-     </p>
-     
+    
 
-     <Button variant="outline-primary">Update Task</Button>
+     <Button variant="outline-primary" onClick={handleUpdateTask}>Update Task</Button>
+     {
+       isAdmin? <> <Button variant="outline-danger">Delete Task</Button></>:null
+     }
     </Accordion.Body>
   </Accordion.Item>
   

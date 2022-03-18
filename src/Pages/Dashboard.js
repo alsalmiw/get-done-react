@@ -24,6 +24,14 @@ export default function Dashboard() {
   {
     navigate('/login');
   }
+  else{
+    let projects = await getProjectItemsByUserId(userId)
+          if(projects.length!=0)
+          {
+            setAllProjectsByID(projects)
+          }
+          
+  }
   // else if (!token==null){
   //     if(isAdmin)
   //     {
@@ -178,7 +186,7 @@ export default function Dashboard() {
       <Col>
       {
         allProjectsByID.length !=0?
-        allProjectsByID.map((project, idx) => project.statusOfProject=="ToDo" && project.isProjectArchived==false && project.isProjectDeleted==false? <ProjectTile project={project} idx={idx} />: null )
+        allProjectsByID.map((project, idx) => (project.statusOfProject=="ToDo" && project.isArchived==false && project.isDeleted==false? <ProjectTile project={project} idx={idx} />: null ))
         : null
       }
       
@@ -191,7 +199,7 @@ export default function Dashboard() {
       <Col>
       {
          allProjectsByID.length !=0?
-        allProjectsByID.map((project, idx) => project.statusOfProject=="InProgress" && project.isProjectArchived==false && project.isProjectDeleted==false? <ProjectTile project={project} idx={idx}/>: null )
+        allProjectsByID.map((project, idx) => project.statusOfProject=="InProgress" && project.isArchived==false && project.isDeleted==false? <ProjectTile project={project} idx={idx}/>: null )
         : null
       }
       </Col>
@@ -204,7 +212,7 @@ export default function Dashboard() {
       <Col>
       {
          allProjectsByID.length !=0?
-        allProjectsByID.map((project, idx) => project.statusOfProject=="Completed" && project.isProjectArchived==false && project.isProjectDeleted==false? <ProjectTile project={project} idx={idx}/>: null ) 
+        allProjectsByID.map((project, idx) => project.statusOfProject=="Completed" && project.isArchived==false && project.isDeleted==false? <ProjectTile project={project} idx={idx}/>: null ) 
         : null
       }
       </Col>
