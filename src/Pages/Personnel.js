@@ -47,7 +47,6 @@ function Personnel() {
   }
 
   const handleRevokeAccess = async(id) => {
-    //ChangeRevokeUserAccess id
     let result  = await ChangeRevokeUserAccess(id)
     if(result)
     {
@@ -61,16 +60,17 @@ function Personnel() {
 
   const handleReturnAccess = async(id) => {
     //ChangeRevokeUserAccess id
-    let result  = await ChangeRevokeUserAccess(id)
-    console.log(result)
-    if(result)
-    {
-      let personnel = await GetAllUsersInfo();
-    if(personnel.length!=0)
-    {
-      setAllUsers(personnel)
-    }
-    }
+      //admins cannot revoke another admins use
+      let result  = await ChangeRevokeUserAccess(id)
+      console.log(result)
+      if(result)
+      {
+        let personnel = await GetAllUsersInfo();
+      if(personnel.length!=0)
+      {
+        setAllUsers(personnel)
+      }
+      }
   }
 
   const handleRemoveUser = async(username) => {
