@@ -5,20 +5,7 @@ import { DeleteUser, ChangeRole, ChangeRevokeUserAccess, GetAllUsersInfo } from 
 
 function Personnel() {
   let { username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken, allUsers, setAllUsers } = useContext(UserContext);
-
-  //map through the users to create the table 
-
-  //The data has to be an array for the map method to
-  // let DummyData = [
-  //   { Id: 1, Username: "Walaa", isAdmin: false, isOwner: true, isRevoked: false },
-  //   { Id: 2, Username: "Jamie", isAdmin: true, isOwner: false, isRevoked: false },
-  //   { Id: 3, Username: "John", isAdmin: true, isOwner: false, isRevoked: true },
-  //   { Id: 4, Username: "Peter", isAdmin: true, isOwner: false, isRevoked: false },
-  //   { Id: 5, Username: "Jesse", isAdmin: true, isOwner: false, isRevoked: false },
-  //   { Id: 6, Username: "An", isAdmin: false, isOwner: false, isRevoked: false },
-  //   { Id: 7, Username: "aaa", isAdmin: false, isOwner: false, isRevoked: false },
-  //   { Id: 8, Username: "Hector", isAdmin: true, isOwner: false, isRevoked: true }
-  // ];
+  
   //Owner is an Admin, isAdmin is a project manager
 
   useEffect(async () => {
