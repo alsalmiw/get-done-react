@@ -23,9 +23,8 @@ function Personnel() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [isUserOwner, setIsUserOwner] = useState();
 
-  const handleUserRole = async (id) => {
-    //ChangeRole  id
-    let result = await ChangeRole(id)
+  const handleUserRole = async (username) => {
+    let result = await ChangeRole(username);
     console.log(result)
     if (result) {
       let personnel = await GetAllUsersInfo();
@@ -37,15 +36,13 @@ function Personnel() {
   }
 
   const handleRevokeAccess = async (id) => {
-    // console.log(isUserAdmin);
-    console.log(isUserOwner);
-    // let result = await ChangeRevokeUserAccess(id)
-    // if (result) {
-    //   let personnel = await GetAllUsersInfo();
-    //   if (personnel.length != 0) {
-    //     setAllUsers(personnel)
-    //   }
-    // }
+    let result = await ChangeRevokeUserAccess(id)
+    if (result) {
+      let personnel = await GetAllUsersInfo();
+      if (personnel.length != 0) {
+        setAllUsers(personnel)
+      }
+    }
   }
 
   const handleReturnAccess = async (id) => {
@@ -113,9 +110,9 @@ function Personnel() {
                                 {
                                     //admins can change the roles of specialists but nother other admins
                                     (isUserOwner == true) ?
-                                    (isUserOwner == true && user.isOwner != true ? <Button variant="primary" onClick={() => handleUserRole(user.id)}> Change Role </Button> : "N/A")
+                                    (isUserOwner == true && user.isOwner != true ? <Button variant="primary" onClick={() => handleUserRole(user.username)}> Change Role </Button> : "N/A")
                                     :
-                                    (user.isAdmin != true ? <Button variant="primary" onClick={() => handleUserRole(user.id)}> Change Role </Button> : "N/A" )
+                                    (user.isAdmin != true ? <Button variant="primary" onClick={() => handleUserRole(user.username)}> Change Role </Button> : "N/A" )
                                 }
                               </td>
                               <td className="text-center">
