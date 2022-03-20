@@ -15,11 +15,12 @@ function Personnel() {
       setAllUsers(personnel)
       setIsUserAdmin(isAdmin);
       setIsUserAdmin(isOwner);
+      console.log(isAdmin);
     }
   }, [])
 
 
-  const [isUserAdmin, setIsUserAdmin] = useState();
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [isUserOwner, setIsUserOwner] = useState();
 
   const handleUserRole = async (id) => {
@@ -37,13 +38,13 @@ function Personnel() {
 
   const handleRevokeAccess = async (id) => {
     console.log(isUserAdmin);
-    let result = await ChangeRevokeUserAccess(id)
-    if (result) {
-      let personnel = await GetAllUsersInfo();
-      if (personnel.length != 0) {
-        setAllUsers(personnel)
-      }
-    }
+    // let result = await ChangeRevokeUserAccess(id)
+    // if (result) {
+    //   let personnel = await GetAllUsersInfo();
+    //   if (personnel.length != 0) {
+    //     setAllUsers(personnel)
+    //   }
+    // }
   }
 
   const handleReturnAccess = async (id) => {
@@ -120,13 +121,15 @@ function Personnel() {
                               <td className="text-center">
                                 {
                                   // (a>b) ? ( a>c ? a : c) : ( b>c ? b : c)
-                                  (isUserAdmin == true && user.isAdmin != true ?
-                                    "N/A"
-                                    : <Button variant="danger" onClick={() => handleRevokeAccess(user.id)}>Revoke Access</Button>
+                                  (user.isOwner == false ?
+                                  <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button>
+                                  : "N/A") ? 
+                                  (
+                                    user.isAdmin == true ? "N/A"
+                                  :
+                                  <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button>
                                   )
-                                   
-
-
+                                  : "N/A"
                                 }
                               </td>
                             </tr>
