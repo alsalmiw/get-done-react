@@ -114,11 +114,7 @@ function Personnel() {
                                 {
                                   user.isOwner == false ?
                                     <Button variant="primary" onClick={()=>handleUserRole(user.id)}>
-                                      {
-                                        user.isAdmin == true ? "Change Role To Specialist"
-                                          :
-                                          "Change Role To Admin"
-                                      }
+                                    Change Role
                                     </Button>
                                     :
                                     "N/A"
