@@ -14,8 +14,8 @@ function Personnel() {
     if (personnel.length != 0) {
       setAllUsers(personnel)
       setIsUserAdmin(isAdmin);
-      setIsUserAdmin(isOwner);
-      console.log(isAdmin);
+      setIsUserOwner(isOwner);
+     
     }
   }, [])
 
@@ -37,7 +37,8 @@ function Personnel() {
   }
 
   const handleRevokeAccess = async (id) => {
-    console.log(isUserAdmin);
+    // console.log(isUserAdmin);
+    console.log(isUserOwner);
     // let result = await ChangeRevokeUserAccess(id)
     // if (result) {
     //   let personnel = await GetAllUsersInfo();
@@ -110,26 +111,20 @@ function Personnel() {
                               </td>
                               <td className="text-center">
                                 {
-                                  user.isOwner == false ?
-                                    <Button variant="primary" onClick={() => handleUserRole(user.id)}>
-                                      Change Role
-                                    </Button>
+                                    //admins can change the roles of specialists but nother other admins
+                                    (isUserOwner == true) ?
+                                    (isUserOwner == true && user.isOwner != true ? <Button variant="primary" onClick={() => handleUserRole(user.id)}> Change Role </Button> : "N/A")
                                     :
-                                    "N/A"
+                                    (user.isAdmin != true ? <Button variant="primary" onClick={() => handleUserRole(user.id)}> Change Role </Button> : "N/A" )
                                 }
                               </td>
                               <td className="text-center">
                                 {
                                   // (a>b) ? ( a>c ? a : c) : ( b>c ? b : c)
-                                  (user.isOwner == false ?
-                                  <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button>
-                                  : "N/A") ? 
-                                  (
-                                    user.isAdmin == true ? "N/A"
+                                  (isUserOwner == true) ?
+                                  (isUserOwner == true && user.isOwner != true ? <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A")
                                   :
-                                  <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button>
-                                  )
-                                  : "N/A"
+                                  (user.isAdmin != true ? <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A" )
                                 }
                               </td>
                             </tr>
