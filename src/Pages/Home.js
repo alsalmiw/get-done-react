@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import ModalContext from "../Context/ModalContext";
 import { getAllProjects, checkToken } from "../Services/DataServices";
-// import { Button } from 'bootstrap';
 
 export default function Home() {
   let navigate = useNavigate();
@@ -24,8 +23,6 @@ export default function Home() {
   }, []);
 
   const [everyProject, setEveryProject] = useState([]);
-  const [everyProjectPriority, setEveryProjectPriority] = useState([]);
-  const [everyProjectDate, setEveryProjectDate] = useState([]);
 
   let sortByDate = [];
   let sortByName = [];
@@ -70,7 +67,7 @@ export default function Home() {
       setAllProjects(sortByPriority);
 
     } else {
-      sortByDate = allProjects.slice().sort((a, b) =>  new Date(a.date) - new Date(b.date));
+      sortByDate = allProjects.sort((a, b) =>  new Date(b.date) - new Date(a.date));
       console.log(sortByDate);
       setAllProjects(sortByDate);
       // setEveryProject(sortByDate);
@@ -83,8 +80,9 @@ export default function Home() {
   };
 
   return (
-    <Container fluid className="d-flex justify-content-center">
-      <Form.Group className="mb-3" controlId="Category">
+    <Container fluid className="mt-3 d-flex justify-content-center">
+      
+      <Form.Group className="mb-3 mt-3 justify-content-center" controlId="Category">
         <Form.Select aria-label="Default select example" onChange={handleSort}>
           <option>Sort By</option>
           <option value="Priority">By Priority</option>
@@ -92,6 +90,7 @@ export default function Home() {
           <option value="Name">By Name</option>
         </Form.Select>
       </Form.Group>
+
       <div className="project-snippit-container">
 
         {allProjects.length != 0
@@ -101,18 +100,7 @@ export default function Home() {
               ) : null
             )
           : null}
-        {/* {
-       !allProjects==[]?
-       allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Medium"? <ProjectSnippitComponent project={project} idx={idx} />: null)
-       :
-       null
-      }
-     {
-       !allProjects==[]?
-       allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
-       :
-       null
-      } */}
+
       </div>
     </Container>
   );
