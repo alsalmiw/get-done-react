@@ -8,16 +8,18 @@ import { DeleteUser, ChangeRole, ChangeRevokeUserAccess, GetAllUsersInfo, create
 function Personnel() {
   let navigate = useNavigate();
   let { username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken, allUsers, setAllUsers } = useContext(UserContext);
-
   //Owner is an Admin, isAdmin is a project manager
 
   useEffect(async () => {
     let personnel = await GetAllUsersInfo();
-
     if (personnel.length != 0) {
-      setAllUsers(personnel)
+      let filteredArr = filterPersonnelByRole(personnel);
+      // console.log(personnel);
+      // console.log(filteredArr);
+      setAllUsers(filteredArr);
       setIsUserAdmin(isAdmin);
       setIsUserOwner(isOwner);
+      // console.log(allUsers);
 
     }
   }, [])
@@ -54,6 +56,27 @@ function Personnel() {
       }
     }
 
+  }
+
+  const filterPersonnelByRole = (personnel) => {
+    let tempArr = [];
+    let owners = personnel.filter(item => item.isOwner === true);
+    let admins = personnel.filter(item => item.isAdmin === true && item.isOwner === false);
+    let specialists = personnel.filter(item => item.isOwner === false && item.isAdmin === false);
+    
+    
+    for(let i = 0; i<owners.length; i++){
+      tempArr.push(owners[i]);
+    }
+
+    for(let j = 0; j<admins.length; j++){
+      tempArr.push(admins[j]);
+    }
+
+    for(let k = 0; k<specialists.length; k++){
+      tempArr.push(specialists[k]);
+    }
+    return tempArr;
   }
 
   const handleRevokeAccess = async (id) => {
