@@ -20,7 +20,7 @@ export default function CreateAccount() {
     if(result == true)
     {
        navigate('/');
-    setIsAdmin(false)
+    setIsAdmin(false);
     setToken("notnull")
     //How to get a token here? 
     }

@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Table, Form, Accordion, Button } from 'react-bootstrap';
 import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 import UserContext from "../Context/UserContext";
-import { DeleteUser, ChangeRole, ChangeRevokeUserAccess, GetAllUsersInfo } from "../Services/DataServices";
+import { DeleteUser, ChangeRole, ChangeRevokeUserAccess, GetAllUsersInfo, createAccount } from "../Services/DataServices";
 
 function Personnel() {
+  let navigate = useNavigate();
   let { username, setUsername, userId, setUserId, isAdmin, setIsAdmin, password, setPassword, isOwner, setIsOwner, token, setToken, allUsers, setAllUsers } = useContext(UserContext);
 
   //Owner is an Admin, isAdmin is a project manager
@@ -20,6 +22,24 @@ function Personnel() {
     }
   }, [])
 
+  const handleSubmit = async () => {
+
+    let userData = {
+      Id: 0,
+      username,
+      password
+    }
+    let result = await createAccount(userData);
+    console.log(result)
+    if (result == true) {
+      navigate('/');
+      setIsAdmin(false)
+      setToken("notnull")
+      //How to get a token here? 
+    }
+
+
+  }
 
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [isUserOwner, setIsUserOwner] = useState();
@@ -83,7 +103,32 @@ function Personnel() {
             <Accordion.Item eventKey='0'>
               <Accordion.Header>Create User</Accordion.Header>
               <AccordionBody>
-                Add the user creating a 
+                <Container fluid>
+                  <Row>
+                    <Col className="mb-2 d-flex justify-content-center">
+                      <h1>Create Account</h1>
+                    </Col>
+                    <hr />
+                  </Row>
+                  <Row className="d-flex justify-content-center">
+                    <Col md={8} className="mt-2">
+                      <Form>
+                        <Form.Group className="mb-4" controlId="formUsername">
+                          <Form.Control type="text" placeholder="Username" onChange={({ target }) => setUsername(target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-4" controlId="formBasicPassword">
+                          <Form.Control type="password" placeholder="Password" onChange={({ target: { value } }) => setPassword(value)} />
+                        </Form.Group>
+                        <div className="d-flex justify-content-center">
+                          <Button variant="primary" onClick={handleSubmit}>
+                            Create
+                          </Button>
+                        </div>
+                      </Form>
+                    </Col>
+                  </Row>
+                  {/* Center the placeholder text in the forms! */}
+                </Container>
               </AccordionBody>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
