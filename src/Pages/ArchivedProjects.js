@@ -47,7 +47,10 @@ export default function Dashboard() {
       let projects = await getAllProjects()
       if(projects.length!=0)
       {
-       
+
+        
+       //get all projects
+       //match project id to projectId in tasks
       }
     }
    
