@@ -3,11 +3,17 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
 import ModalComponent from './ModalComponent';
+import {ArchiveDeleteProject, getProjectItemsByUserId} from '../Services/DataServices';
 
-export default function ProjectTile() {
-
-  let {isAdmin} = useContext(UserContext);
-  let {show, setShow, isEdit, setIsEdit} = useContext(ModalContext);
+export default function ProjectTile({project, idx}) {
+  //console.log(project.Id)
+  let {isAdmin, userId} = useContext(UserContext);
+  let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
+    setIsTaskView, isTaskEdit, setIsTaskEdit, isCreateProject, setIsCreateProject, isEditProject, setIsEditProject,
+    priorityOfProject, setpriorityOfProject, projectName, setProjectName,projectId, setProjectId, statusOfProject, setstatusOfProject, projectDueDate, setProjectDueDate,
+    projectDescription, setProjectDescription, isProjectDeleted, setIsProjectDeleted, isProjectArchived, setIsProjectArchived, taskName, setTaskName, taskDescription, setTaskDescription, taskPriority, setTaskPriority, 
+    taskDueDate, setTaskDueDate, taskStatus, setTaskStatus, isTaskDeleted, setIsTaskDeleted, isArchived, setIsArchived,
+    specialist, setSpecialist, allProjects, setAllProjects, allProjectsByID, setAllProjectsByID} = useContext(ModalContext);
 
   // const [isEdit, setIsEdit]=useState(false);
 
@@ -24,45 +30,68 @@ export default function ProjectTile() {
   {
     setShow(true);
     setIsEdit(true);
+    setIsCreateProject(false)
+  }
+
+  const handleDeleteProject = async () => {
+    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/DeleteProject')
+    if(result)
+    {
+      let projects = await getProjectItemsByUserId(userId)
+      setAllProjectsByID(project)
+    }
+  }
+
+  const handleArchiveProject = async() => {
+    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/ArchiveProject')
+    let projects = await getProjectItemsByUserId(userId)
+      setAllProjectsByID(project)
   }
 
   return (
-    <div className='project-container'>
-        <div className='project-title center'><h4>TaskName: Airport Logistics</h4> </div>
+    <>
+    <div key={idx} className='project-container'>
+        <div className='project-title center'><h4>TaskName: {project.projectName} </h4> </div>
         <div className='project-description'> 
-        <p><strong>Description: </strong>remove all dead bodies from the airport and transport to morgue </p>
+        <p><strong>Description: </strong>{project.projectDescription} </p>
         </div>
-        <p><strong>Priority:</strong> Top</p>
+        <p><strong>Priority: </strong> 
+         {project.priorityOfProject=="High"? <span className="red">{project.priorityOfProject}</span>: project.priorityOfProject=="Medium"?<span className="orange">{project.priorityOfProject}</span>: <span className="green">{project.priorityOfProject}</span>}
+        
+         </p>
         <p><strong>Progress: </strong> 60%</p>
         <div className='project-buttons'>
-        <Button className='m-1' variant="primary" onClick={handleViewShow}>
+        <Button className='m-1' variant="primary" onClick={() => {
+          handleViewShow()
+          setProjectId(project.id)
+          console.log(project.id)
+        setProjectName(project.projectName)
+        setpriorityOfProject(project.priorityOfProject)
+        setstatusOfProject(project.statusOfProject)
+        setProjectDescription(project.projectDescription)
+        setProjectDueDate(project.projectDueDate)
+        }}>
         View
       </Button>
-      {isAdmin?<><Button className='m-1' variant="warning" onClick={handleEditShow}>Edit</Button>
-      <Button className='m-1' variant="success" >Archive</Button>
-      <Button className='m-1' variant="danger" >Delete</Button></>
+      {isAdmin?<><Button className='m-1' variant="warning" onClick={() => {
+        handleEditShow()
+        setProjectId(project.id)
+        console.log(project.id)
+        setProjectName(project.projectName)
+        setpriorityOfProject(project.priorityOfProject)
+        setstatusOfProject(project.statusOfProject)
+        setProjectDescription(project.projectDescription)
+        setProjectDueDate(project.projectDueDate)
+        }}>Edit</Button>
+      <Button className='m-1' variant="success" onClick={handleArchiveProject}>Archive</Button>
+      <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button>
+      
+      </>
       : null}
         </div>
-        <div className='tasks'>
-        <div className='task-container'>
-        <Row>
-          <Col>Task Title</Col>
-          <Col>Assigned To: </Col>
-          <Col>Due Date: </Col>
-          <Col><Button className='m-1' variant="primary" onClick={handleViewShow}>
-        View
-      </Button>
-         
-         {
-           isAdmin?<Button  variant="warning" onClick={handleEditShow}>Edit</Button>: null
-         }
-         </Col>
-        </Row>
-        </div>
-        </div>
-        <ModalComponent />
+       
       </div>
-
-
+    
+      </>
   )
 }

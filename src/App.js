@@ -8,6 +8,7 @@ import useUser from './Hooks/use-user';
 import Navigation from './Components/Navigation';
 import ModalContext from './Context/ModalContext';
 import useModal from './Hooks/use-modal';
+import Personnel from './Pages/Personnel';
 
 
 function App() {

@@ -1,7 +1,33 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import UserContext from "../Context/UserContext";
+import { createAccount } from '../Services/DataServices';
 
 export default function CreateAccount() {
+  let navigate = useNavigate();
+  let {username, setUsername, password, setPassword, setIsAdmin, setToken} = useContext(UserContext);
+  
+  const handleSubmit = async() => {
+
+    let userData = {
+      Id : 0,
+      username,
+      password
+    }
+    let result = await createAccount(userData);
+    console.log(result)
+    if(result == true)
+    {
+       navigate('/');
+    setIsAdmin(false)
+    setToken("notnull")
+    //How to get a token here? 
+    }
+   
+    
+  }
+
   return (
     //create the create account page and the login page!
     //background purple
@@ -13,16 +39,16 @@ export default function CreateAccount() {
         <hr />
       </Row>
       <Row className="d-flex justify-content-center">
-        <Col md={10} className="">
+        <Col md={8} className="mt-2">
           <Form>
-            <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Control type="text" placeholder="Username" />
+            <Form.Group className="mb-4" controlId="formUsername">
+              <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control type="password" placeholder="Password" />
+            <Form.Group className="mb-4" controlId="formBasicPassword">
+              <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)}/>
             </Form.Group>
             <div className="d-flex justify-content-center">
-              <Button variant="primary" type="submit">
+              <Button variant="primary" onClick={handleSubmit}>
                 Create
               </Button>
             </div>

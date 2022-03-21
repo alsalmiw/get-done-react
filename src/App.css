@@ -13,7 +13,7 @@ body{
   background-color: purple;
 }
 
-.nav-link, .navbar-brand{
+.navbar-nav .nav-link, .navbar-brand{
   color: white !important;
 }
 .dashboard-container{
@@ -60,14 +60,38 @@ body{
 }
 .project-snippit-container{
   display: flex;
-  justify-content:space-between ;
+  /* justify-content:center ; */
   flex-direction: row;
+  flex-wrap: wrap;
   margin: 10px;
 }
 
 .snippit-container{
-  width: 24.5%;
+  width: 22.5%;
+  margin: 5px;
   padding: 5px;
   background-color: white;
   border: 1px solid purple;
+}
+.red{
+  color: red;
+}
+.orange{
+  color:orange;
+}
+.green{
+  color:green;
+}
+
+.purple-border{
+  border: 1px solid purple;
+  
+}
+
+@media (min-width: 576px)
+{
+.modal-dialog {
+    max-width: 80%;
+    margin: 1.75rem auto;
+}
 }
