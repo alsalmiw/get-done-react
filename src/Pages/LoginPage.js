@@ -4,6 +4,8 @@ import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
 import { useNavigate } from "react-router-dom";
 import {login, GetLoggedInUserData, getProjectItemsByUserId, getAllProjects, GetAllUsersInfo} from "../Services/DataServices";
+import "./LoginStyle.css";
+import dummy from "../LoginPhoto/dummy.jpg";
 
 
 export default function LoginPage() {
@@ -74,33 +76,38 @@ export default function LoginPage() {
 
     return ( //create the create account page and the login page!
         //background purple
-        <Container fluid>
-            <Row>
-                <Col className="mt-3 mb-3 d-flex justify-content-center">
-                    <h1>Login</h1>
+        <Container fluid className='HeroImage1'>
+            <Row className='mt-5 LoginBoxBack d-flex justify-content-center align-items-center'>
+                <Col md={4} className='LoginBox '>
+                        <Row>
+                        <Col className="mt-5 mb-3 d-flex justify-content-center">
+                            <h1>Login</h1>
+                        </Col>
+                        <hr />
+                    </Row>
+                    <Row className="d-flex justify-content-center">
+                        <Col md={8} className="mt-2">
+                            <Form>
+                                <Form.Group className="mb-4" controlId="formUsername">
+                                    <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)}/>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)} />
+                                </Form.Group>
+                                <div className="d-flex justify-content-center">
+                                    <Button className="mt-2 LoginBtn SameWidth" variant="primary" onClick={handleSubmit}>
+                                        Login
+                                    </Button>
+                                </div>
+                                <div className="mt-3 d-flex justify-content-center">
+                                {/* <a onClick={()=>navigate('/create-account')}> <h6>Create Account</h6> </a> */}
+                                </div>
+                            </Form>
+                        </Col>
+                    </Row>
                 </Col>
-                <hr />
             </Row>
-            <Row className="d-flex justify-content-center">
-                <Col md={8} className="mt-2">
-                    <Form>
-                        <Form.Group className="mb-4" controlId="formUsername">
-                            <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)}/>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control type="password" placeholder="Password" onChange={({target:{value}})=>setPassword(value)} />
-                        </Form.Group>
-                        <div className="d-flex justify-content-center">
-                            <Button className="mt-2" variant="primary" onClick={handleSubmit}>
-                                Login
-                            </Button>
-                        </div>
-                        <div className="mt-3 d-flex justify-content-center">
-                        <a onClick={()=>navigate('/create-account')}> <h6>Create Account</h6> </a>
-                        </div>
-                    </Form>
-                </Col>
-            </Row>
+            
             {/* Center the placeholder text in the forms! */}
         </Container>
     )

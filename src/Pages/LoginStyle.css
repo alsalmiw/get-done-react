@@ -1,0 +1,33 @@
+.HeroImage1{
+    background-image: url('../LoginPhoto/purpleL1.jpg');
+    background-size: cover;
+    position: absolute;
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+}
+.LoginBoxBack{
+    background-color: rgb(241, 241, 241, 0.5);
+    height: 80vh;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.LoginBox{
+    background-color: white;
+    height: 80%;
+    width: 60%;
+
+    border-radius: 5px;
+}
+.LoginBtn:active, .LoginBtn:hover, .LoginBtn:focus, .LoginBtn{
+    outline: purple auto 5px;
+    background-color: purple;
+    border-color: purple;
+    width: 100%;
+    
+
+}
