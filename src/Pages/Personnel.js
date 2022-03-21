@@ -64,18 +64,10 @@ function Personnel() {
     let admins = personnel.filter(item => item.isAdmin === true && item.isOwner === false);
     let specialists = personnel.filter(item => item.isOwner === false && item.isAdmin === false);
     
+    owners.map(project => tempArr.push(project));
+    admins.map(project => tempArr.push(project));
+    specialists.map(project => tempArr.push(project));
     
-    for(let i = 0; i<owners.length; i++){
-      tempArr.push(owners[i]);
-    }
-
-    for(let j = 0; j<admins.length; j++){
-      tempArr.push(admins[j]);
-    }
-
-    for(let k = 0; k<specialists.length; k++){
-      tempArr.push(specialists[k]);
-    }
     return tempArr;
   }
 
