@@ -99,9 +99,9 @@ function Personnel() {
     <Container>
       <Row>
         <Col className="mt-4">
-          <Accordion>
+          <Accordion  defaultActiveKey={['1']} alwaysOpen>
             <Accordion.Item eventKey='0'>
-              <Accordion.Header>Create User</Accordion.Header>
+              <Accordion.Header>Add Personnel</Accordion.Header>
               <AccordionBody>
                 <Container fluid>
                   <Row>
@@ -132,7 +132,7 @@ function Personnel() {
               </AccordionBody>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>Users With Access</Accordion.Header>
+              <Accordion.Header>Personnel With Access</Accordion.Header>
               <Accordion.Body>
                 <Table striped bordered hover>
                   <thead>
@@ -186,7 +186,7 @@ function Personnel() {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Users With Revoked Access</Accordion.Header>
+              <Accordion.Header>Personnel With Revoked Access</Accordion.Header>
               <Accordion.Body>
                 <Table striped bordered hover>
                   <thead>
