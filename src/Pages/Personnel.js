@@ -170,7 +170,7 @@ function Personnel() {
                               <td className="text-center">
                                 {
                                   user.isOwner == true ? "Owner" :
-                                    user.isAdmin == true ? "Admin" : "Specialist"
+                                    user.isAdmin == true ? "Manager" : "Specialist"
                                 }
                               </td>
                               <td className="text-center">
