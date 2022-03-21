@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react'
-import {Container} from 'react-bootstrap'
+import React, {useContext, useEffect, useState} from 'react'
+import {Container, Form, Button} from 'react-bootstrap'
 import ProjectSnippitComponent from '../Components/ProjectSnippitComponent';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
 import {getAllProjects, checkToken} from '../Services/DataServices'
+// import { Button } from 'bootstrap';
 
 
 export default function Home() {
@@ -22,165 +23,80 @@ console.log(allProjects)
   else{
 
       let projects = await getAllProjects()
-    console.log(username)
+      console.log(username)
       setAllProjects(projects);
   }
 
-
-  
   },[])
 
-  
-  // let allProjects = [
+  const [everyProject, setEveryProject] = useState([]);
 
-  //   {
-  //     Id : 1,
-  //     userId: 1,
-  //     projectName:"logistics",
-  //     projectDescription:"jksfhjj fsdklj ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     projectPriority:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 2,
-  //     userId: 1,
-  //     projectName:"computers",
-  //     projectDescription:"sdfdsf sdfsdf dfgd g sdfg",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     projectPriority:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 3,
-  //     userId: 1,
-  //     projectName:"desks",
-  //     projectDescription:"grsg  rgrsfrg ssg s ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     projectPriority:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 4,
-  //     userId: 1,
-  //     projectName:"chairs",
-  //     projectDescription:"dfgsgf srg gs  ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     projectPriority:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 5,
-  //     userId: 1,
-  //     projectName:"monitors",
-  //     projectDescription:"ilggi;ugiguui jkgjkhg;iu",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     projectPriority:"Medium",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 6,
-  //     userId: 1,
-  //     projectName:"keyboards",
-  //     projectDescription:"fsdgfsg sdfg sg wgtwegt wer t ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     projectPriority:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 7,
-  //     userId: 1,
-  //     projectName:"other stuff",
-  //     projectDescription:"sgg s gsfgsfgsrg sgsfgwrgtr trt",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     projectPriority:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 8,
-  //     userId: 1,
-  //     projectName:"laptops",
-  //     projectDescription:"sgggsgsg",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     projectPriority:"Medium",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 9,
-  //     userId: 1,
-  //     projectName:"iPhones",
-  //     projectDescription:"sdfbfb",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     projectPriority:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 10,
-  //     userId: 1,
-  //     projectName:"some more stuff",
-  //     projectDescription:"fbfbfb",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     projectPriority:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   }
-  // ]
+  
+  
+let sortByDate = [];
+let sortByName = [];
+let sortByPriority = [];
+const handleSort = (e) => {
+    // console.log(e.target.value);
+    if(e.target.value === "Name")
+    {
+      sortByName = allProjects.sort((a, b) => a.projectName.localeCompare(b.projectName));
+      console.log(sortByName);
+      setEveryProject(sortByName);
+      // everyProject.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted ? <ProjectSnippitComponent project={project} idx={idx} />: null)
+    }
+  }
+  
   
 
   return (
-   
-    <Container fluid className='d-flex justify-content-center'>
-    <div className='project-snippit-container'>
-      
-    {
-      allProjects.length!=0?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"? <ProjectSnippitComponent project={project} idx={idx} />: null)
-            //allProjects.map((project, idx) => console.log(!project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"))
 
+    
+    <Container fluid className='d-flex justify-content-center'>
+       <Form.Group className="mb-3" controlId="Category">     
+                    <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleSort}
+                    >
+                  <option>Sort By</option>
+                  <option value="Priority">By Priority</option>
+                  <option value="DueDate">By Due Date</option>
+                  <option value="Name">By Name</option>
+                  </Form.Select>   
+        </Form.Group>
+    <div className='project-snippit-container'>
+
+    {
+      // (everyProject.length == 0) ?
+      // (everyProject.map((project, idx) => (!project.isProjectArchived && !project.isProjectDeleted ? <ProjectSnippitComponent project={project} idx={idx} />: null)
+      // : )
+      
+      // (a>b) ? ( a>c ? a : c) : ( b>c ? b : c)
+    }
+
+    
+    
+    ({
+      
+      allProjects.length!=0 ?
+      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"? <ProjectSnippitComponent project={project} idx={idx} />: null)
       :
       null
     }
      {
-      !allProjects==[]?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Medium"? <ProjectSnippitComponent project={project} idx={idx} />: null)
-      :
-      null
-    }
+       !allProjects==[]?
+       allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Medium"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+       :
+       null
+      }
      {
-      !allProjects==[]?
-      allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
-      :
-      null
-    }
+       !allProjects==[]?
+       allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
+       :
+       null
+      })
+  
+    
    
     </div>
     </Container>
