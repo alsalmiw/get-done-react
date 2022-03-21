@@ -86,7 +86,7 @@ export default function LoginPage() {
                         <hr />
                     </Row>
                     <Row className="d-flex justify-content-center">
-                        <Col md={8} className="mt-2">
+                        <Col md={8} className="mt-4">
                             <Form>
                                 <Form.Group className="mb-4" controlId="formUsername">
                                     <Form.Control type="text" placeholder="Username" onChange={({target})=>setUsername(target.value)}/>
