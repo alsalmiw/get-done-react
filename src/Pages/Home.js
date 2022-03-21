@@ -36,6 +36,7 @@ console.log(allProjects)
 let sortByDate = [];
 let sortByName = [];
 let sortByPriority = [];
+
 const handleSort = (e) => {
     // console.log(e.target.value);
     if(e.target.value === "Name")
@@ -43,7 +44,7 @@ const handleSort = (e) => {
       sortByName = allProjects.sort((a, b) => a.projectName.localeCompare(b.projectName));
       console.log(sortByName);
       setEveryProject(sortByName);
-      // everyProject.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted ? <ProjectSnippitComponent project={project} idx={idx} />: null)
+      everyProject.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted ? <ProjectSnippitComponent project={project} idx={idx} />: null)
     }
   }
   
@@ -70,13 +71,13 @@ const handleSort = (e) => {
       // (everyProject.length == 0) ?
       // (everyProject.map((project, idx) => (!project.isProjectArchived && !project.isProjectDeleted ? <ProjectSnippitComponent project={project} idx={idx} />: null)
       // : )
-      
+
       // (a>b) ? ( a>c ? a : c) : ( b>c ? b : c)
     }
 
     
     
-    ({
+    {/* ({
       
       allProjects.length!=0 ?
       allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="High"? <ProjectSnippitComponent project={project} idx={idx} />: null)
@@ -94,7 +95,7 @@ const handleSort = (e) => {
        allProjects.map((project, idx) => !project.isProjectArchived && !project.isProjectDeleted && project.priorityOfProject=="Low"? <ProjectSnippitComponent project={project} idx={idx} />: null)
        :
        null
-      })
+      }) */}
   
     
    
