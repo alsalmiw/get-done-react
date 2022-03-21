@@ -1,0 +1,150 @@
+.project-dashboard-container{
+    display: flex;
+}
+
+.project-info-container{
+    width: 20%;
+    background-color: white;
+    min-height: 96vh;
+    padding:5px;
+    border-right: 2px solid rgb(226, 226, 226);
+}
+
+.project-tasks-container{
+    width: 80%;
+    min-height: 96vh;
+ 
+}
+
+.project-title{
+    border-bottom: 1px solid rgb(195, 183, 195);
+    margin: 10px;
+    padding-bottom: 0;
+}
+
+.project-title svg{
+    font-size: 20px;
+    color: grey;
+    cursor: pointer;
+}
+
+.project-content{
+    margin: 10px;
+    padding-bottom: 10px;
+}
+
+.project-title p{
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.project-tasks-container{
+    display: flex;
+}
+
+.tasks-status-container{
+    height: 100%;
+    width: 33.33%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.status-container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+
+.greyBg{
+    background-color: rgb(219, 219, 219);
+}
+.task-status{
+    text-transform: uppercase;
+    font-weight: 600;
+   
+}
+
+.create-task{
+    color: grey;
+    border: 2px dashed grey;
+    width: 90%;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+
+}
+
+.task-info{
+    border: 2px solid grey;
+    width: 90%;
+    margin: 5px;
+    border-radius: 10px;
+
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.create-task svg{
+    margin-right: 20px;
+    font-size: 40px;
+}
+.task-title{
+    background-color: grey;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-priority{
+    background-color: rgb(184, 12, 12);
+    width: 70%;
+    color: white;
+    text-align: center;
+    padding: 2px 0 3px 0;
+    border-radius: 20px;
+}
+
+.greenBg{
+    background-color: rgb(64, 131, 64);
+}
+.orangeBg{
+    background-color: rgb(195, 136, 26);
+}
+.redBg{
+    background-color: rgb(184, 12, 12);
+}
+
+svg{
+    cursor: pointer;
+}
+
+.completed{
+    font-size: 30px;
+    margin-bottom: 1rem;
+    color:rgb(49, 146, 49)
+}
+.inprogress{
+    font-size: 30px;
+    margin-bottom: 1rem;
+    color:rgb(120, 144, 120)
+}
+.todo{
+    font-size: 30px;
+    margin-bottom: 1rem;
+    color:rgb(114, 121, 114)
+}

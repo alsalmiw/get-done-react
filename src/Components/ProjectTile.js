@@ -1,11 +1,16 @@
 import React, {useContext, useState} from 'react'
+import "../Pages/ProjectStyle.css";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import ModalContext from '../Context/ModalContext';
 import ModalComponent from './ModalComponent';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faPenToSquare, faCheckCircle, faThumbsDown, faTrashCan, faBoxArchive} from "@fortawesome/free-solid-svg-icons";
 import {ArchiveDeleteProject, getProjectItemsByUserId} from '../Services/DataServices';
 
 export default function ProjectTile({project, idx}) {
+  let navigate = useNavigate();
   //console.log(project.Id)
   let {isAdmin, userId} = useContext(UserContext);
   let {show, setShow, isEdit, setIsEdit, isProjectView, setIsProjectView, isTaskView, 
@@ -20,8 +25,9 @@ export default function ProjectTile({project, idx}) {
   const handleClose = () => setShow(false);
   const handleViewShow = () =>
   {
-    setShow(true);
-    setIsEdit(false);
+    //setShow(true);
+    //setIsEdit(false);
+    navigate('/project');
   }
   
   
@@ -33,8 +39,8 @@ export default function ProjectTile({project, idx}) {
     setIsCreateProject(false)
   }
 
-  const handleDeleteProject = async () => {
-    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/DeleteProject')
+  const handleDeleteProject = async (id) => {
+    let result = await ArchiveDeleteProject(`https://task-tracker-web-app.azurewebsites.net/project/DeleteProject/${id}`)
     if(result)
     {
       let projects = await getProjectItemsByUserId(userId)
@@ -42,24 +48,28 @@ export default function ProjectTile({project, idx}) {
     }
   }
 
-  const handleArchiveProject = async() => {
-    let result = await ArchiveDeleteProject(project, 'https://task-tracker-web-app.azurewebsites.net/project/ArchiveProject')
+  const handleArchiveProject = async(id) => {
+    let result = await ArchiveDeleteProject(`https://task-tracker-web-app.azurewebsites.net/project/ArchiveProject${id}`)
     let projects = await getProjectItemsByUserId(userId)
       setAllProjectsByID(project)
   }
 
   return (
     <>
-    <div key={idx} className='project-container'>
-        <div className='project-title center'><h4>TaskName: {project.projectName} </h4> </div>
-        <div className='project-description'> 
+    <div key={idx} className='task-info'>
+        <div className='task-title'>
+          
+          <h4> {project.projectName} </h4>
+          <FontAwesomeIcon icon={faTrashCan} onClick={()=>handleDeleteProject(project.id)} />
+           </div>
+        <div className='project-description p-1'> 
         <p><strong>Description: </strong>{project.projectDescription} </p>
         </div>
-        <p><strong>Priority: </strong> 
+        <p className="p-1"><strong>Priority: </strong> 
          {project.priorityOfProject=="High"? <span className="red">{project.priorityOfProject}</span>: project.priorityOfProject=="Medium"?<span className="orange">{project.priorityOfProject}</span>: <span className="green">{project.priorityOfProject}</span>}
         
          </p>
-        <p><strong>Progress: </strong> 60%</p>
+        <p><strong>Due Date: </strong> {project.dueDate}</p>
         <div className='project-buttons'>
         <Button className='m-1' variant="primary" onClick={() => {
           handleViewShow()
@@ -69,11 +79,12 @@ export default function ProjectTile({project, idx}) {
         setpriorityOfProject(project.priorityOfProject)
         setstatusOfProject(project.statusOfProject)
         setProjectDescription(project.projectDescription)
-        setProjectDueDate(project.projectDueDate)
+        setProjectDueDate(project.dueDate)
         }}>
         View
       </Button>
-      {isAdmin?<><Button className='m-1' variant="warning" onClick={() => {
+      {isAdmin?<>
+      {/* <Button className='m-1' variant="warning" onClick={() => {
         handleEditShow()
         setProjectId(project.id)
         console.log(project.id)
@@ -82,9 +93,9 @@ export default function ProjectTile({project, idx}) {
         setstatusOfProject(project.statusOfProject)
         setProjectDescription(project.projectDescription)
         setProjectDueDate(project.projectDueDate)
-        }}>Edit</Button>
-      <Button className='m-1' variant="success" onClick={handleArchiveProject}>Archive</Button>
-      <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button>
+        }}>Edit</Button> */}
+      <Button className='m-1' variant="success" onClick={handleArchiveProject}><FontAwesomeIcon icon={faBoxArchive}/> Archive</Button>
+      {/* <Button className='m-1' variant="danger" onClick={handleDeleteProject} >Delete</Button> */}
       
       </>
       : null}

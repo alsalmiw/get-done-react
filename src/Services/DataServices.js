@@ -103,14 +103,14 @@ async function updateProjectDetails(updatedProject)
     return data;
 }
 
-async function ArchiveDeleteProject(project, link)
+async function ArchiveDeleteProject(link)
 {
     let res= await fetch(link, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(project)
+        body: JSON.stringify()
     });
     if(!res.ok)
     {
@@ -129,6 +129,25 @@ async function AddTask(task)
             "Content-Type": "application/json"
         },
         body: JSON.stringify(task)
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+async function ChangeTaskStatus(taskId, status)
+{
+    let res= await fetch(`https://task-tracker-web-app.azurewebsites.net/Task/UpdateTaskStatus/${taskId}/${status}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
     });
     if(!res.ok)
     {
@@ -163,6 +182,15 @@ async function GetAllUsersInfo()
 async function GetAllTasks()
 {
     let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/GetAllTasks`);
+    let data = await result.json();
+   let userData = data;
+   console.log(userData);
+   return userData;
+}
+
+async function GetTasksUsingProjectID(id)
+{
+    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/GetTaskByProjectId/${id}`);
     //does not exist yet
     let data = await result.json();
    let userData = data;
@@ -171,27 +199,45 @@ async function GetAllTasks()
    return userData;
 }
 
-async function updateTask()
+async function updateTask(task)
 {
-    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/UpdateTask`);
-    //does not exist yet
-    let data = await result.json();
-   let userData = data;
-   //save information into a provider
-   console.log(userData);
-   return userData;
+        let res= await fetch(`https://task-tracker-web-app.azurewebsites.net/Task/updateTask`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(task)
+        });
+        if(!res.ok)
+        {
+            const message = `An Error has Occured ${res.status}`
+            throw new Error (message)
+        }
+        let data = await res.json();
+        console.log(data);
+        return data;
 }
 
-async function deleteTask()
+async function deleteTask(id)
 {
-    let result = await fetch(`https://task-tracker-web-app.azurewebsites.net/task/DeleteTask`);
-    //does not exist yet
-    let data = await result.json();
-   let userData = data;
-   //save information into a provider
-   console.log(userData);
-   return userData;
+
+    let res= await fetch(`https://task-tracker-web-app.azurewebsites.net/Task/deleteTask/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
+    });
+    if(!res.ok)
+    {
+        const message = `An Error has Occured ${res.status}`
+        throw new Error (message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
 }
+
 
 
 async function DeleteUser(userToDelete)
@@ -251,4 +297,6 @@ async function ChangeRevokeUserAccess(id)
     return data;
 }
 
-export { login, getProjectItemsByUserId, createAccount, createProject, deleteTask, AddTask, updateTask, GetAllTasks, updateProjectDetails, getAllProjects, ArchiveDeleteProject, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken }
+
+
+export { login, getProjectItemsByUserId, createAccount, createProject, deleteTask, AddTask, updateTask, GetAllTasks,GetTasksUsingProjectID, updateProjectDetails, getAllProjects, ArchiveDeleteProject, GetLoggedInUserData, GetAllUsersInfo, DeleteUser, ChangeRole, ChangeRevokeUserAccess, checkToken, ChangeTaskStatus }

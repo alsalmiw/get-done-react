@@ -1,10 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react'
+import "./ProjectStyle.css";
 import { useNavigate } from "react-router-dom";
 import {Container, Modal, Button, Row, Col} from "react-bootstrap";
 import UserContext from "../Context/UserContext";
 import ProjectTile from '../Components/ProjectTile';
 import ModalContext from '../Context/ModalContext';
 import useModal from '../Hooks/use-modal';
+import useUser from '../Hooks/use-user';
 import ModalComponent from '../Components/ModalComponent';
 import {getProjectItemsByUserId} from "../Services/DataServices"
 
@@ -22,7 +24,7 @@ export default function Dashboard() {
 
      if (token == null)
   {
-    navigate('/login');
+    navigate('/');
   }
   else{
     let projects = await getProjectItemsByUserId(userId)
@@ -49,130 +51,6 @@ export default function Dashboard() {
   
   },[])
 
-  // let allProjectsByID = [
-
-  //   {
-  //     Id : 1,
-  //     userId: 1,
-  //     projectName:"logistics",
-  //     projectDescription:"jksfhjj fsdklj ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     priorityOfProject:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 2,
-  //     userId: 1,
-  //     projectName:"computers",
-  //     projectDescription:"sdfdsf sdfsdf dfgd g sdfg",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     priorityOfProject:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 3,
-  //     userId: 1,
-  //     projectName:"desks",
-  //     projectDescription:"grsg  rgrsfrg ssg s ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     priorityOfProject:"High",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 4,
-  //     userId: 1,
-  //     projectName:"chairs",
-  //     projectDescription:"dfgsgf srg gs  ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     priorityOfProject:"Low",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 5,
-  //     userId: 1,
-  //     projectName:"monitors",
-  //     projectDescription:"",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     priorityOfProject:"Medium",
-  //     isProjectDeleted: true,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 6,
-  //     userId: 1,
-  //     projectName:"keyboards",
-  //     projectDescription:"fsdgfsg sdfg sg wgtwegt wer t ",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     priorityOfProject:"Low",
-  //     isProjectDeleted: true,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 7,
-  //     userId: 1,
-  //     projectName:"other stuff",
-  //     projectDescription:"sgg s gsfgsfgsrg sgsfgwrgtr trt",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"Completed",
-  //     priorityOfProject:"High",
-  //     isProjectDeleted: true,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 8,
-  //     userId: 1,
-  //     projectName:"laptops",
-  //     projectDescription:"sgggsgsg",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     priorityOfProject:"Medium",
-  //     isProjectDeleted: false,
-  //     isProjectArchived: false,
-  //   },
-  //   {
-  //     Id : 9,
-  //     userId: 1,
-  //     projectName:"iPhones",
-  //     projectDescription:"sdfbfb",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"InProgress",
-  //     priorityOfProject:"Low",
-  //     isProjectDeleted: true,
-  //     isProjectArchived: true,
-  //   },
-  //   {
-  //     Id : 10,
-  //     userId: 1,
-  //     projectName:"some more stuff",
-  //     projectDescription:"fbfbfb",
-  //     dateCreated: "2022-03-26",
-  //     projectDueDate:"2022-03-26",
-  //     projectStatus:"ToDo",
-  //     priorityOfProject:"High",
-  //     isProjectDeleted: true,
-  //     isProjectArchived: true,
-  //   }
-  // ]
-
   
 
   return (
@@ -194,7 +72,7 @@ export default function Dashboard() {
     </Row>
     </div>
     <div className='in-progress '>
-    <Row className='dashboard-status text-center'><h4>InProgress</h4></Row>
+    <Row className='dashboard-status text-center'><h4 className="text-center project-title task-status">InProgress</h4></Row>
     <Row>
       <Col>
       {
