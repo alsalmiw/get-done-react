@@ -1,0 +1,10 @@
+.HeroImage1{
+    background-image: url('../LoginPhoto/purpleL1.jpg');
+    background-size: cover;
+    position: absolute;
+}
+.HeroImage2{
+    background-image: url('../LoginPhoto/purpleL2.jpg');
+    background-size: cover;
+    position: absolute;
+}
