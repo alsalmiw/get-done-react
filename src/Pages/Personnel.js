@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Container, Row, Col, Table, Form, Accordion, Button } from 'react-bootstrap';
+import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 import UserContext from "../Context/UserContext";
 import { DeleteUser, ChangeRole, ChangeRevokeUserAccess, GetAllUsersInfo } from "../Services/DataServices";
 
@@ -15,7 +16,7 @@ function Personnel() {
       setAllUsers(personnel)
       setIsUserAdmin(isAdmin);
       setIsUserOwner(isOwner);
-     
+
     }
   }, [])
 
@@ -79,7 +80,13 @@ function Personnel() {
       <Row>
         <Col className="mt-4">
           <Accordion>
-            <Accordion.Item eventKey="0">
+            <Accordion.Item eventKey='0'>
+              <Accordion.Header>Create User</Accordion.Header>
+              <AccordionBody>
+                Add the user creating a 
+              </AccordionBody>
+            </Accordion.Item>
+            <Accordion.Item eventKey="1">
               <Accordion.Header>Users With Access</Accordion.Header>
               <Accordion.Body>
                 <Table striped bordered hover>
@@ -108,20 +115,20 @@ function Personnel() {
                               </td>
                               <td className="text-center">
                                 {
-                                    //admins can change the roles of specialists but nother other admins
-                                    (isUserOwner == true) ?
+                                  //admins can change the roles of specialists but nother other admins
+                                  (isUserOwner == true) ?
                                     (isUserOwner == true && user.isOwner != true ? <Button variant="primary" onClick={() => handleUserRole(user.username)}> Change Role </Button> : "N/A")
                                     :
-                                    (user.isAdmin != true ? <Button variant="primary" onClick={() => handleUserRole(user.username)}> Change Role </Button> : "N/A" )
+                                    (user.isAdmin != true ? <Button variant="primary" onClick={() => handleUserRole(user.username)}> Change Role </Button> : "N/A")
                                 }
                               </td>
                               <td className="text-center">
                                 {
                                   // (a>b) ? ( a>c ? a : c) : ( b>c ? b : c)
                                   (isUserOwner == true) ?
-                                  (isUserOwner == true && user.isOwner != true ? <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A")
-                                  :
-                                  (user.isAdmin != true ? <Button variant="danger" onClick={()=>handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A" )
+                                    (isUserOwner == true && user.isOwner != true ? <Button variant="danger" onClick={() => handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A")
+                                    :
+                                    (user.isAdmin != true ? <Button variant="danger" onClick={() => handleRevokeAccess(user.id)}>Revoke Access</Button> : "N/A")
                                 }
                               </td>
                             </tr>
@@ -133,7 +140,7 @@ function Personnel() {
                 </Table>
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="1">
+            <Accordion.Item eventKey="2">
               <Accordion.Header>Users With Revoked Access</Accordion.Header>
               <Accordion.Body>
                 <Table striped bordered hover>
